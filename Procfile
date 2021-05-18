@@ -1,0 +1,1 @@
+web: yarn server:deploy -p $PORT   

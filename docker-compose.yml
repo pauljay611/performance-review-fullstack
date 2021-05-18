@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql
+    container_name: mysql-db-paypay
+    volumes:
+      - /var/lib/docker/volumes
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-password
+      - MYSQL_DATABASE=my-paypay
