@@ -1,12 +1,10 @@
-# React Express Typescript Example
+# Paypay Challenge performance review 
 
-> A simple react express typescript example with google map app
-
-[demo](https://react-express-typescript-example.vercel.app/)
+> performance review web application
 
 ## Setup
 
-- git clone https://github.com/pauljay611/react-express-typescript-example.git
+- git clone https://github.com/pauljay611/performance-review-fullstack.git
 - docker-compose up -d
 - yarn
 - yarn db:create
