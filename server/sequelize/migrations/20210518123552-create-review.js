@@ -1,19 +1,33 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("Categories", {
+    await queryInterface.createTable("Review", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
+      reviewer_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      description: {
-        type: Sequelize.STRING,
+      employee_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: {
+            tableName: "User",
+          },
+          key: "id",
+        },
+      },
+      feedback: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      is_reviewed: {
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
       createdAt: {
@@ -27,6 +41,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Categories");
+    await queryInterface.dropTable("Review");
   },
 };
