@@ -1,10 +1,9 @@
 import { Sequelize } from "sequelize";
-import Store, { storeModelName, storeModelAttributes } from "./store";
-import Coupon, { couponModelName, couponModelAttributes } from "./coupon";
-import Category, {
-  categoryModelName,
-  categoryModelAttributes,
-} from "./category";
+import Review, { reviewModelName, reviewModelAttributes } from "./review";
+import User, {
+  userModelName,
+  userModelAttributes,
+} from "./user";
 
 const env = process.env.NODE_ENV || "development";
 
@@ -12,7 +11,7 @@ const config = {
   development: {
     username: "root",
     password: "my-password",
-    database: "coupon_map",
+    database: "my-paypay",
     host: "127.0.0.1",
     dialect: "mysql",
     port: 3306,
@@ -60,28 +59,21 @@ export async function authenticateDatabase() {
   }
 }
 
-Store.init(storeModelAttributes, {
+User.init(userModelAttributes, {
   sequelize,
-  modelName: storeModelName,
+  modelName: userModelName,
   timestamps: true,
 });
 
-Coupon.init(couponModelAttributes, {
+Review.init(reviewModelAttributes, {
   sequelize,
-  modelName: couponModelName,
+  modelName: reviewModelName,
   timestamps: true,
 });
 
-Category.init(categoryModelAttributes, {
-  sequelize,
-  modelName: categoryModelName,
-  timestamps: true,
-});
-
-Store.belongsToMany(Coupon, { through: "StoreCoupon", foreignKey: "store_id" });
-Coupon.belongsToMany(Store, {
-  through: "StoreCoupon",
-  foreignKey: "coupon_id",
+User.hasMany(Review, { foreignKey: "employee_id" });
+Review.belongsTo(User, {
+  foreignKey: "employee_id",
 });
 
 export default sequelize;

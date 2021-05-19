@@ -1,86 +1,57 @@
 import { Request, Response, NextFunction } from "express";
-import Store from "../services/store";
-import Coupon from "../services/coupon";
-import Category from "../services/category";
+import Review from "../services/review";
+import User from "../services/user";
 
-export const getStores = async (
+export const getReviews = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const stores = await Store.getAllData(req.query);
-    res.status(200).json(stores);
+    const reviews = await Review.getAllData(req.query);
+    res.status(200).json(reviews);
   } catch (error) {
     error.statusCode = 400;
     next(error);
   }
 };
 
-export const getStoreByID = async (
+export const getReviewByID = async (
   req: Request<{ id: number }>,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const stores = await Store.getDataByID(+req.params.id);
-    res.status(200).json(stores);
+    const reviews = await Review.getDataByID(+req.params.id);
+    res.status(200).json(reviews);
   } catch (error) {
     error.statusCode = 400;
     next(error);
   }
 };
 
-export const getCoupons = async (
+export const getUsers= async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const coupons = await Coupon.getAllData(req.query);
-    res.status(200).json(coupons);
+    const users = await User.getAllData();
+    res.status(200).json(users);
   } catch (error) {
     error.statusCode = 400;
     next(error);
   }
 };
 
-export const getCouponByID = async (
+export const getUserByID = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const coupons = await Coupon.getDataByID(+req.params.id);
-    res.status(200).json(coupons);
-  } catch (error) {
-    error.statusCode = 400;
-    next(error);
-  }
-};
-
-export const getCategories = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const categories = await Category.getAllData();
-    res.status(200).json(categories);
-  } catch (error) {
-    error.statusCode = 400;
-    next(error);
-  }
-};
-
-export const getCategoryByID = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const categories = await Category.getDataByID(+req.params.id);
-    res.status(200).json(categories);
+    const users = await User.getDataByID(+req.params.id);
+    res.status(200).json(users);
   } catch (error) {
     error.statusCode = 400;
     next(error);

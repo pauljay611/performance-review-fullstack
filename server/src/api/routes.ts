@@ -1,18 +1,18 @@
 import express from "express";
 import {
-  getCategories,
-  getCoupons,
-  getStores,
-  getStoreByID,
+  getUsers,
+  getUserByID,
+  getReviews,
+  getReviewByID,
 } from "../api/controllers";
 
 const router = express.Router();
 
-router.get("/stores", getStores);
-router.get("/store/:id", getStoreByID);
+router.get("/users", getUsers);
+router.get("/user/:id", getUserByID);
 
-router.get("/coupons", getCoupons);
+router.get("/reviews", getReviews);
 
-router.get("/categories", getCategories);
+router.get("/reviews/:id", getReviewByID);
 
 export default router;
