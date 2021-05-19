@@ -62,12 +62,14 @@ export async function authenticateDatabase() {
 User.init(userModelAttributes, {
   sequelize,
   modelName: userModelName,
+  freezeTableName: true,
   timestamps: true,
 });
 
 Review.init(reviewModelAttributes, {
   sequelize,
   modelName: reviewModelName,
+  freezeTableName: true,
   timestamps: true,
 });
 

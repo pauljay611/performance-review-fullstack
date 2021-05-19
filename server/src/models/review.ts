@@ -1,7 +1,7 @@
 import { DataTypes, Model, ModelAttributes } from "sequelize";
 import { IReview } from "../types";
 
-export const reviewModelName = "Reviews";
+export const reviewModelName = "Review";
 
 export const reviewModelAttributes: ModelAttributes<Review, IReview> = {
   id: {
@@ -10,11 +10,11 @@ export const reviewModelAttributes: ModelAttributes<Review, IReview> = {
     autoIncrement: true,
   },
   reviewer_id: {
-    type: DataTypes.CHAR(36),
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   employee_id: {
-    type: DataTypes.CHAR(36),
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   feedback: {

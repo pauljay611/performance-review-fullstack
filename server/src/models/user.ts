@@ -1,7 +1,7 @@
 import { DataTypes, Model, ModelAttributes } from "sequelize";
 import { IUser } from "../types";
 
-export const userModelName = "Users";
+export const userModelName = "User";
 
 export const userModelAttributes: ModelAttributes<User, IUser> = {
   id: {
