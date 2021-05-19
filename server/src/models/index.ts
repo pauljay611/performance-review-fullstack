@@ -1,17 +1,20 @@
 import { Sequelize } from "sequelize";
+
 import Review, { reviewModelName, reviewModelAttributes } from "./review";
 import User, {
   userModelName,
   userModelAttributes,
 } from "./user";
 
+require('dotenv').config({ path: `${__dirname}/../../../.env` })
+
 const env = process.env.NODE_ENV || "development";
 
 const config = {
   development: {
-    username: "root",
-    password: "my-password",
-    database: "my-paypay",
+    username: process.env.APP_DB_USERNAME,
+    password: process.env.APP_DB_PASSWORD,
+    database: process.env.APP_DB,
     host: "127.0.0.1",
     dialect: "mysql",
     port: 3306,

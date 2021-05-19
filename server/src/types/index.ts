@@ -14,3 +14,8 @@ export interface IReview {
   feedback: string;
   is_reviewed: boolean;
 }
+
+export enum Role {
+  Employee = 0,
+  Admin = 1
+}

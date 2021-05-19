@@ -1,6 +1,6 @@
-import { findAllUsers, findUserByID } from "../dao/user";
+import { findAllUsers, findUserByID, findUserByUsername } from "../dao/user";
 
-class Category {
+class User {
   static async getAllData() {
     const users = await findAllUsers();
     return users;
@@ -9,6 +9,10 @@ class Category {
     const user = await findUserByID(id);
     return user;
   }
+  static async getDataByUsername(username: string) {
+    const user = await findUserByUsername(username);
+    return user;
+  }
 }
 
-export default Category;
+export default User;

@@ -1,10 +1,15 @@
 import express from "express";
 import cors from "cors";
+import bodyParser from 'body-parser'
+import helmet from 'helmet'
 
 import { authenticateDatabase } from "./models/index";
 import routes from "./api/routes";
 import errorHandler from "./api/middleware";
 import Exception from "./error";
+import passport from "passport";
+
+import "./auth/passport";
 
 export const app = express();
 const PORT = process.env.PORT || 8000;
@@ -22,9 +27,19 @@ const corsOptions = {
 
 const corsMiddleware = cors(corsOptions);
 
+
 app.use(corsMiddleware);
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
+app.use(bodyParser());
+
+app.use(helmet());
+
 app.use("/", routes);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", (req, res) => res.send("Express + TypeScript Server"));
 
