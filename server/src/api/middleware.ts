@@ -10,7 +10,7 @@ export const errorHandler: ErrorRequestHandler = (
   const status = err.status || 500;
   let message = err.message || "Something went wrong";
 
-  if (status === 301) {
+  if (status === 404) {
     message = "api not found";
   }
 

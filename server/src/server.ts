@@ -18,8 +18,6 @@ const corsOptions = {
   origin: [
     "http://localhost:9000",
     "http://localhost:3000",
-    "https://react-express-typescript-example.vercel.app",
-    "https://react-express-typescript-example-prod.vercel.app",
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -44,7 +42,7 @@ app.use(passport.session());
 app.get("/", (req, res) => res.send("Express + TypeScript Server"));
 
 app.get("*", function (req, res, next) {
-  const error = new Exception(301);
+  const error = new Exception(404);
   next(error);
 });
 
