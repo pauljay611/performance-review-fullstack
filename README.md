@@ -1,6 +1,6 @@
-# Paypay Challenge performance review 
+# Paypay Challenge
 
-> performance review web application
+> A performance review web application
 
 ## Setup
 
@@ -19,16 +19,10 @@ APP_DB_USERNAME=root
 APP_DB_PASSWORD=my-password
 API_ENDPOINT=http://localhost:8000
 ```
+## Tech Stack
 
-## Create Table & seeds
-
-- see https://sequelize.org/master/manual/migrations.html
-
-## Deployment
-
-- server
-  - heroku
-  - push to sta/server pro/server
-- client
-  - vercel
-  - push to sta/client pro/client
+- Backend
+    - express.js
+    - typescript
+    - sequelize
+    - mysql
