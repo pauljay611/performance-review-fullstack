@@ -16,7 +16,17 @@ export const findUserByUsername = async (username: string) => {
   return user;
 };
 
-export const createUser = async (userParams: Omit<IUser, 'id'>) => {
+export const createUser = async (userParams: IUser) => {
   const user = await User.create(userParams);
+  return user;
+};
+
+export const updateUser = async (id: number, userParams: IUser) => {
+  const user = await User.update(userParams, { where: { id } });
+  return user;
+};
+
+export const deleteUser = async (id: number) => {
+  const user = await User.destroy({ where: { id } });
   return user;
 };

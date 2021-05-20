@@ -1,28 +1,93 @@
 import express from "express";
-import passport from "passport"
+import passport from "passport";
 
 import {
   getUsers,
   getUserByID,
+  updateUserByID,
+  deleteUserByID,
   getReviews,
-  getReviewByID,
+  getReviewsByEmployeeID,
+  updateReviewByID,
+  deleteReviewByID,
+  createReview,
   createUser,
   login,
 } from "../api/controllers";
 
-import checkRoles from '../auth/checkRoles'
+import checkAdminRole from "../auth/checkAdminRole";
 
 const router = express.Router();
 
 router.post("/login", login);
 
-router.post("/user", passport.authenticate("jwt", { session: false }), checkRoles(true), createUser);
+// User
+// Admin: CRUD
 
-router.get("/users", getUsers);
-router.get("/user/:id", getUserByID);
+router.post(
+  "/user",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(true),
+  createUser
+);
+router.get(
+  "/users",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(true),
+  getUsers
+);
+router.get(
+  "/users/:id",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(false),
+  getUserByID
+);
+router.patch(
+  "/users",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(true),
+  updateUserByID
+);
+router.delete(
+  "/users/:id",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(true),
+  deleteUserByID
+);
 
-router.get("/reviews", passport.authenticate("jwt", { session: false }), checkRoles(true), getReviews);
-
-router.get("/reviews/:id", getReviewByID);
+// Review
+// Admin: CRUD
+// Employee: R
+// Reviewer: U
+router.post(
+  "/review",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(true),
+  createReview
+);
+router.get(
+  "/reviews",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(true),
+  getReviews
+);
+router.get(
+  "/reviews/:eID",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(false),
+  getReviewsByEmployeeID
+);
+router.patch(
+  "/reviews",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(false),
+  updateReviewByID
+);
+router.delete(
+  "/reviews/:id",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(true),
+  deleteReviewByID
+);
 
 export default router;

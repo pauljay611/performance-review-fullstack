@@ -31,6 +31,6 @@ export const userModelAttributes: ModelAttributes<User, IUser> = {
   },
 };
 
-class User extends Model<Omit<IUser, 'id'>> {}
+class User extends Model<IUser> {}
 
 export default User;

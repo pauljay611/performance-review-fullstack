@@ -1,24 +1,32 @@
 import Reivew from "../models/review";
+import { IReview } from "../types";
 
-export const findReivews = async () => {
+export const findReviews = async () => {
   const reviews = await Reivew.findAll();
   return reviews;
 };
 
-export const findReivewByQuery = async (id: number) => {
-  const reviews = await Reivew.findAll({
-    include: [
-      {
-        model: Reivew as any,
-        where: { id },
-        attributes: [],
-      },
-    ],
-  });
-  return reviews;
+export const findReviewsByEmployeeID = async (eID: number) => {
+  const review = await Reivew.findAll({ where: { employee_id: eID } });
+  return review;
 };
 
-export const findReivewByID = async (id: number) => {
+export const findReviewByID = async (id: number) => {
   const review = await Reivew.findByPk(id);
+  return review;
+};
+
+export const createReview = async (reviewParams: IReview) => {
+  const review = await Reivew.create(reviewParams);
+  return review;
+};
+
+export const updateReviewsByID = async (id: number, reviewParams: IReview) => {
+  const review = await Reivew.update(reviewParams, { where: { id } });
+  return review;
+};
+
+export const deleteReviewsByID = async (id: number) => {
+  const review = await Reivew.destroy({ where: { id } });
   return review;
 };

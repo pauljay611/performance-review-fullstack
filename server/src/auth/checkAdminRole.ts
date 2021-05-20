@@ -1,6 +1,6 @@
-export default (role)=> (req, res, next) => {
+export default (checkAdmin)=> (req, res, next) => {
     try {
-        if(role !== req.user.get('is_admin')){
+        if(checkAdmin && !req.user.get('is_admin')){
             return res.status(403).send('forbidden')
         }
         next()

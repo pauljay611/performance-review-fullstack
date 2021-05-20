@@ -27,6 +27,6 @@ export const reviewModelAttributes: ModelAttributes<Review, IReview> = {
   },
 };
 
-class Review extends Model<Omit<IReview, 'id'>> {}
+class Review extends Model<IReview> {}
 
 export default Review;
