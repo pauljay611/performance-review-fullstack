@@ -2,12 +2,12 @@ import express from "express";
 import cors from "cors";
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
+import passport from "passport";
 
 import { authenticateDatabase } from "./models/index";
 import routes from "./api/routes";
 import errorHandler from "./api/middleware";
 import Exception from "./error";
-import passport from "passport";
 
 import "./auth/passport";
 

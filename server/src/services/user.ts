@@ -1,4 +1,5 @@
-import { findAllUsers, findUserByID, findUserByUsername } from "../dao/user";
+import { findAllUsers, findUserByID, findUserByUsername, createUser } from "../dao/user";
+import { IUser } from "../types";
 
 class User {
   static async getAllData() {
@@ -11,6 +12,10 @@ class User {
   }
   static async getDataByUsername(username: string) {
     const user = await findUserByUsername(username);
+    return user;
+  }
+  static async setUser(userParams: Omit<IUser, 'id'>) {
+    const user = await createUser(userParams);
     return user;
   }
 }
