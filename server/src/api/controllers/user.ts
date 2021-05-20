@@ -115,9 +115,10 @@ export const updateUserByID = async (
   next: NextFunction
 ) => {
   try {
-    const { id, userParams } = req.body;
+    const { id } = req.params;
+    const userParams = req.body;
     const user = await User.updateDataByID(+id, userParams);
-    res.status(200).json(user);
+    res.status(200).json({ message: user[0] ? "update" : "no update" });
   } catch (error) {
     error.statusCode = 400;
     next(error);

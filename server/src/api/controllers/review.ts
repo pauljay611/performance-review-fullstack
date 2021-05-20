@@ -48,7 +48,7 @@ export const createReview = async (
   next: NextFunction
 ) => {
   try {
-    const { reviewParams } = req.body;
+    const reviewParams = req.body;
     const review = await Review.setReview(reviewParams);
     res.status(200).json(review);
   } catch (error) {
@@ -58,12 +58,13 @@ export const createReview = async (
 };
 
 export const updateReviewByID = async (
-  req: Request<{ id: string; reviewParams: IReview }>,
+  req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { id, reviewParams } = req.body;
+    const { id } = req.params;
+    const reviewParams = req.body;
     // only admin and reviewer can update review
     const authHeader = req.headers.authorization;
     const decodeToken = parseAuthHeader(authHeader);
@@ -77,7 +78,7 @@ export const updateReviewByID = async (
     }
 
     const reviews = await Review.updateDataByID(+id, reviewParams);
-    res.status(200).json(reviews);
+    res.status(200).json({ message: reviews[0] ? "update" : "no update" });
   } catch (error) {
     error.statusCode = 400;
     next(error);

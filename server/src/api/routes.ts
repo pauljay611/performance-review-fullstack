@@ -23,13 +23,6 @@ router.post("/login", login);
 
 // User
 // Admin: CRUD
-
-router.post(
-  "/user",
-  passport.authenticate("jwt", { session: false }),
-  checkAdminRole(true),
-  createUser
-);
 router.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -42,8 +35,14 @@ router.get(
   checkAdminRole(false),
   getUserByID
 );
-router.patch(
+router.post(
   "/users",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(true),
+  createUser
+);
+router.patch(
+  "/users/:id",
   passport.authenticate("jwt", { session: false }),
   checkAdminRole(true),
   updateUserByID
@@ -59,12 +58,6 @@ router.delete(
 // Admin: CRUD
 // Employee: R
 // Reviewer: U
-router.post(
-  "/review",
-  passport.authenticate("jwt", { session: false }),
-  checkAdminRole(true),
-  createReview
-);
 router.get(
   "/reviews",
   passport.authenticate("jwt", { session: false }),
@@ -77,8 +70,14 @@ router.get(
   checkAdminRole(false),
   getReviewsByEmployeeID
 );
-router.patch(
+router.post(
   "/reviews",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(true),
+  createReview
+);
+router.patch(
+  "/reviews/:id",
   passport.authenticate("jwt", { session: false }),
   checkAdminRole(false),
   updateReviewByID
