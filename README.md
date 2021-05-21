@@ -2,25 +2,6 @@
 
 > A performance review web application
 
-## Functional Requirements
-
-## Non-Functional Requirement
-
-## User Story
-
-- User with admin role can do CRUD on users
-- User with admin role can do CRUD on reviews
-- User without admin role can see personal reviews
-- User without admin role can update reviews when being a reviewer
-
-## User flow
-
-1. User login with username and password
-2. Direct to admin or employee page with different role
-3. Admin: can link to employees/reviews page for each user story
-4. Employee: can link to feedbacks/reviews page for each user story
-5. Click button to logout
-
 ## Setup
 
 - git clone https://github.com/pauljay611/performance-review-fullstack.git
@@ -56,7 +37,6 @@ API_ENDPOINT=http://localhost:8000
   - styled-components
   - redux
   - redux-observable
-  - typesafe-actions
 
 ## API
 
@@ -75,6 +55,37 @@ API_ENDPOINT=http://localhost:8000
   - POST:/review
   - PATCH:/review
   - DELETE:/reviews/:id
+
+## Pages
+
+- Admin
+
+  - employees
+  - reviews
+
+- Employee
+
+  - reviews
+  - feedbacks
+
+## Functional Requirements
+
+## Non-Functional Requirement
+
+## User Story
+
+- User with admin role can do CRUD on users
+- User with admin role can do CRUD on reviews
+- User without admin role can see personal reviews
+- User without admin role can update reviews when being a reviewer
+
+## User flow
+
+1. User login with username and password
+2. Direct to admin or employee page with different role
+3. Admin: can link to employees/reviews page for each user story
+4. Employee: can link to feedbacks/reviews page for each user story
+5. Click button to logout
 
 ## High Level Design
 
