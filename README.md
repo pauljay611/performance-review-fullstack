@@ -2,12 +2,24 @@
 
 > A performance review web application
 
+## Functional Requirements
+
+## Non-Functional Requirement
+
 ## User Story
 
 - User with admin role can do CRUD on users
 - User with admin role can do CRUD on reviews
-- User without admin role can see self reviews
+- User without admin role can see personal reviews
 - User without admin role can update reviews when being a reviewer
+
+## User flow
+
+1. User login with username and password
+2. Direct to admin or employee page with different role
+3. Admin: can link to employees/reviews page for each user story
+4. Employee: can link to feedbacks/reviews page for each user story
+5. Click button to logout
 
 ## Setup
 

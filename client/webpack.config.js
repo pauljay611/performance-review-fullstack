@@ -7,6 +7,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
   },
 
   devtool: "source-map",
@@ -17,6 +18,7 @@ module.exports = {
   devServer: {
     hot: true,
     port: 9000,
+    historyApiFallback: true,
   },
 
   module: {

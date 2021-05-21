@@ -3,7 +3,6 @@ import { Request, Response, NextFunction } from "express";
 import Review from "../../services/review";
 import User from "../../services/user";
 import { parseAuthHeader } from "../../utils";
-import { IReview } from "../../types";
 
 export const getReviews = async (
   req: Request,

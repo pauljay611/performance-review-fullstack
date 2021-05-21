@@ -1,6 +1,17 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 
 import App from "./containers/App";
+import { BrowserRouter, Switch } from "react-router-dom";
+import { Suspense } from "react";
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(
+  <BrowserRouter>
+    <Switch>
+      <Suspense fallback={<div>Loading... </div>}>
+        <App />
+      </Suspense>
+    </Switch>
+  </BrowserRouter>,
+  document.getElementById("app")
+);

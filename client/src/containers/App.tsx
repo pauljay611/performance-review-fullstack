@@ -9,6 +9,8 @@ import store from "../store";
 
 import "../style/reset.css";
 import "../style/global.css";
+import { renderRoutes } from "react-router-config";
+import routes from "../router";
 
 const Layout = styld.div`
   width: 100vw;
@@ -16,23 +18,19 @@ const Layout = styld.div`
   display: flex;
   justify-content: center;
   border: 1px solid black;
+  overflow: scroll;
 `;
 
 const Wrapper = styld.div`
-  width: 375px;
+  width: 100%;
   height: 100%;
-  padding: 1%;
   border: 1px solid black;
 `;
 
 const App: React.FC = () => (
   <Layout>
-    <Wrapper>
-      <Provider store={store}>
-        <Coupon></Coupon>
-        <Map></Map>
-      </Provider>
-    </Wrapper>
+    <div>header</div>
+    <Wrapper>{renderRoutes(routes)}</Wrapper>
   </Layout>
 );
 
