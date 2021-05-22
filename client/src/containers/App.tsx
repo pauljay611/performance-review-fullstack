@@ -2,9 +2,6 @@ import * as React from "react";
 import styld from "styled-components";
 import { Provider } from "react-redux";
 
-import Coupon from "./Coupon";
-import Map from "./Map";
-
 import store from "../store";
 
 import "../style/reset.css";
@@ -25,9 +22,11 @@ const Wrapper = styld.div`
 `;
 
 const App: React.FC = () => (
-  <Layout>
-    <Wrapper>{renderRoutes(routes)}</Wrapper>
-  </Layout>
+  <Provider store={store}>
+    <Layout>
+      <Wrapper>{renderRoutes(routes)}</Wrapper>
+    </Layout>
+  </Provider>
 );
 
 export default App;

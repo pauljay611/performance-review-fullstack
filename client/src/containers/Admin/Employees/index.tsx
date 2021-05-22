@@ -7,6 +7,7 @@ import { Size, Theme } from "../../../types";
 import Modal from "../../../component/Modal";
 import Form from "../../../component/Form";
 import Input from "../../../component/InputBox";
+import { useUser } from "../../../hooks/user";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -67,6 +68,7 @@ const header = ["key", "username", "name", "update", "delete"];
 
 const Employee: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const { users, loading } = useUser();
 
   function renderModal() {
     if (!open) return null;

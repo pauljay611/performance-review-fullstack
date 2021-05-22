@@ -7,17 +7,14 @@ import {
 import { combineEpics, createEpicMiddleware } from "redux-observable";
 import { createStore, applyMiddleware } from "redux";
 
-import { getAllStoresEpic } from "./stores/epics";
-import { getAllCouponsEpic } from "./coupons/epics";
-import { getAllCategoriesEpic } from "./categories/epics";
+import { getAllReviewsEpic } from "./reviews/epics";
+import { getAllUsersEpic } from "./users/epics";
 
-import storeReducer from "./stores/reducers";
-import couponReducer from "./coupons/reducers";
-import categoryReducer from "./categories/reducers";
+import reviewsReducer from "./reviews/reducers";
+import usersReducer from "./users/reducers";
 
-import { StoreActionsType } from "./stores/types";
-import { CouponsActionsType } from "./coupons/types";
-import { CategoriesActionsType } from "./categories/types";
+import { ReviewsActionsType } from "./reviews/types";
+import { UsersActionsType } from "./users/types";
 
 import * as API from "../services/api";
 
@@ -25,10 +22,7 @@ export type RootState = CombinedState<
   StateFromReducersMapObject<typeof reducers>
 >;
 
-type ActionsType =
-  | StoreActionsType
-  | CouponsActionsType
-  | CategoriesActionsType;
+type ActionsType = ReviewsActionsType | UsersActionsType;
 
 declare global {
   interface Window {
@@ -37,9 +31,8 @@ declare global {
 }
 
 const reducers = {
-  store: storeReducer,
-  coupon: couponReducer,
-  category: categoryReducer,
+  review: reviewsReducer,
+  user: usersReducer,
 };
 
 const epicMiddleware = createEpicMiddleware<
@@ -50,11 +43,7 @@ const epicMiddleware = createEpicMiddleware<
 
 const rootReducer = combineReducers(reducers);
 
-const rootEpic = combineEpics(
-  getAllStoresEpic,
-  getAllCouponsEpic,
-  getAllCategoriesEpic
-);
+const rootEpic = combineEpics(getAllReviewsEpic, getAllUsersEpic);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -65,7 +54,6 @@ function configureStore(initialState?: RootState) {
   // compose enhancers
   const enhancer = composeEnhancers(applyMiddleware(...middlewares));
   // create store
-
   return createStore(rootReducer, initialState, enhancer);
 }
 

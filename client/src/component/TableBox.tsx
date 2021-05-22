@@ -51,9 +51,11 @@ const TableBox: React.FC<Props> = ({
     <Wrapper width={width} height={height}>
       <TableWrapper>
         <THead theme={color[themeType]}>
-          {header.map((head) => (
-            <TH tHeight={tHeight}>{head}</TH>
-          ))}
+          <tr>
+            {header.map((head) => (
+              <TH tHeight={tHeight}>{head}</TH>
+            ))}
+          </tr>
         </THead>
         <tbody>
           {data.map((item) => (

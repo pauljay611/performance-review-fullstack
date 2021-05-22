@@ -1,52 +1,18 @@
-export interface IStore {
-  ID: number;
+export interface IUser {
+  id: number;
+  username: string;
+  user_id: string;
+  password: string;
   name: string;
-  description: string;
-  lat: number;
-  lng: number;
-  category_id: number;
+  is_admin: boolean;
 }
 
-export interface IStoresPayload {
-  location?: { lat: number; lng: number };
-  category?: string;
-  range: number;
-}
-
-export interface ICoupon {
-  ID: string;
-  name: string;
-  description: string;
-  type: CouponType;
-  dueTimestamp: number;
-  image: string;
-}
-
-export interface ICouponsPayload {
-  storeID: number;
-}
-
-export enum CouponType {
-  PriceCut,
-  Discount,
-  Free,
-}
-
-export interface IAccount {
-  ID: string;
-  name: string;
-  userInfo: IUserInfo;
-}
-
-export interface IUserInfo {
-  address: string;
-  phone: number;
-}
-
-export interface ICategory {
-  ID: string;
-  name: string;
-  description: string;
+export interface IReview {
+  id: number;
+  reviewer_id: string;
+  employee_id: string;
+  feedback: string;
+  is_reviewed: boolean;
 }
 
 export enum Theme {
