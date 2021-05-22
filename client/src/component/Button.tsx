@@ -26,6 +26,7 @@ export const ButtonComp = styled.div<{
   font-weight: 500;
   border-radius: 10px;
   padding: 2%;
+  cursor: pointer;
   &:hover {
     opacity: 0.8;
   }

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import TableBox from "../../../component/TableBox";
 import Button from "../../../component/Button";
 import { Size, Theme } from "../../../types";
 import Modal from "../../../component/Modal";
+import Form from "../../../component/Form";
+import Input from "../../../component/InputBox";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -16,6 +18,16 @@ const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const FormWrapper = styled.div`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5% 5%;
 `;
 
 const dataSource: (string | React.ReactNode)[][] = [
@@ -54,12 +66,48 @@ const dataSource: (string | React.ReactNode)[][] = [
 const header = ["key", "username", "name", "update", "delete"];
 
 const Employee: React.FC = () => {
-  console.log(1);
+  const [open, setOpen] = useState(false);
+
+  function renderModal() {
+    if (!open) return null;
+    return (
+      <Modal title="Employee Details">
+        <Form>
+          <FormWrapper>
+            <Input
+              width="80%"
+              height="50px"
+              style={{ borderRadius: "10px" }}
+              placeholder="Username"
+              themeType={Theme.Light}
+            />
+            <Input
+              width="80%"
+              height="50px"
+              style={{ borderRadius: "10px" }}
+              placeholder="name"
+              themeType={Theme.Light}
+            />
+            <Button themeType={Theme.Primary} buttonSizeType={Size.M}>
+              Update
+            </Button>
+          </FormWrapper>
+        </Form>
+      </Modal>
+    );
+  }
+
   return (
     <Wrapper>
-      <Modal title="Employee Details" />
+      {renderModal()}
       <Box>
-        <TableBox width="80%" height="100%" data={dataSource} header={header} />
+        <TableBox
+          width="80%"
+          height="100%"
+          data={dataSource}
+          header={header}
+          themeType={Theme.Main}
+        />
       </Box>
     </Wrapper>
   );

@@ -39,6 +39,10 @@ const Header = styled.div`
   border-radius: 10px;
 `;
 
+const Body = styled.div`
+  height: 90%;
+`;
+
 const Modal: React.FC<Props> = ({ title, children }) => {
   const rootEl = document.getElementById("app");
   return (
@@ -50,8 +54,8 @@ const Modal: React.FC<Props> = ({ title, children }) => {
               {title}
             </Text>
           </Header>
+          <Body>{children}</Body>
         </ModalWrapper>
-        {children}
       </Wrapper>
     </Portal>
   );

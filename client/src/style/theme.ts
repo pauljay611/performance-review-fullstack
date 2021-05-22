@@ -5,7 +5,7 @@ export const color: Record<Theme, string> = {
   [Theme.Main]: "#FF0034",
   [Theme.Normal]: "#242323",
   [Theme.Light]: "#e7e7e7",
-  [Theme.Warning]: "#FEE58F",
+  [Theme.Warning]: "#FDCF72",
   [Theme.Error]: "#FF4D50",
 };
 
