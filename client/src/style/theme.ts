@@ -13,3 +13,9 @@ export const size: Record<Size, string> = {
   [Size.M]: "18px",
   [Size.S]: "12px",
 };
+
+export const buttonSize: Record<Size, { width: string; height: string }> = {
+  [Size.L]: { width: "128px", height: "36px" },
+  [Size.M]: { width: "96px", height: "24px" },
+  [Size.S]: { width: "48px", height: "12px" },
+};

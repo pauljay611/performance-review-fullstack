@@ -4,6 +4,7 @@ import Text from "./Text";
 import { Size, Theme } from "../types";
 import Navbar, { Path } from "./Navbar";
 import { useHistory } from "react-router-dom";
+import Button from "./Button";
 
 interface Props {
   paths: Path[];
@@ -22,10 +23,12 @@ const Wrapper = styled.div`
 const Left = styled.div`
   display: flex;
   align-items: center;
-  flex: 1;
+  flex: 4;
 `;
 
 const Right = styled.div`
+  display: flex;
+  align-items: center;
   flex: 1;
 `;
 
@@ -33,6 +36,10 @@ const Header: React.FC<Props> = ({ paths }) => {
   const history = useHistory();
 
   const handleClick = () => {
+    history.push("/");
+  };
+
+  const handleLogoutClick = () => {
     history.push("/");
   };
 
@@ -48,7 +55,22 @@ const Header: React.FC<Props> = ({ paths }) => {
         />
         <Navbar paths={paths} />
       </Left>
-      <Right />
+      <Right>
+        <Text
+          text="Hi Admin"
+          sizeType={Size.M}
+          themeType={Theme.Primary}
+          style={{ marginRight: "5%", cursor: "pointer" }}
+        />
+        <Button
+          text="Logout"
+          sizeType={Size.M}
+          buttonSizeType={Size.M}
+          themeType={Theme.Main}
+          style={{ marginRight: "5%", cursor: "pointer" }}
+          onClick={handleLogoutClick}
+        />
+      </Right>
     </Wrapper>
   );
 };

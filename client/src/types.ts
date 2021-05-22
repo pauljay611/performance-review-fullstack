@@ -62,3 +62,11 @@ export enum Size {
   M = "M",
   S = "S",
 }
+
+export interface BasStyleProps {
+  sizeType?: Size;
+  themeType?: Theme;
+  text?: string;
+  style?: React.CSSProperties;
+  onClick?: (e: React.MouseEvent) => void;
+}
