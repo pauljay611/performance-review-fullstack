@@ -21,7 +21,7 @@ export enum Theme {
   Normal = "normal",
   Light = "light",
   Warning = "warning",
-  Error = "error",
+  Dangerous = "dangerous",
 }
 
 export enum Size {

@@ -19,6 +19,7 @@ const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: "relative";
 `;
 
 const FormWrapper = styled.div`
@@ -31,44 +32,36 @@ const FormWrapper = styled.div`
   padding: 5% 5%;
 `;
 
-const dataSource: (string | React.ReactNode)[][] = [
-  [
-    "1",
-    "E",
-    "??",
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <Button buttonSizeType={Size.M} themeType={Theme.Primary}>
-        update
-      </Button>
-    </div>,
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <Button buttonSizeType={Size.M} themeType={Theme.Error}>
-        update
-      </Button>
-    </div>,
-  ],
-  [
-    "2",
-    "Paul",
-    "26",
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <Button buttonSizeType={Size.M} themeType={Theme.Primary}>
-        update
-      </Button>
-    </div>,
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <Button buttonSizeType={Size.M} themeType={Theme.Error}>
-        update
-      </Button>
-    </div>,
-  ],
-];
-
 const header = ["key", "username", "name", "update", "delete"];
+
+interface TableProps {
+  theme: Theme;
+  text: string;
+}
+
+const TableButton: React.FC<TableProps> = ({ theme, text }) => {
+  return (
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Button buttonSizeType={Size.M} themeType={theme}>
+        text
+      </Button>
+    </div>
+  );
+};
 
 const Employee: React.FC = () => {
   const [open, setOpen] = useState(false);
   const { users, loading } = useUser();
+
+  const data = users.map((user) => {
+    return [
+      user.id,
+      user.username,
+      user.name,
+      <TableButton theme={Theme.Warning} text="update" />,
+      <TableButton theme={Theme.Dangerous} text="delete" />,
+    ];
+  });
 
   function renderModal() {
     if (!open) return null;
@@ -99,6 +92,8 @@ const Employee: React.FC = () => {
     );
   }
 
+  if (loading) return null;
+
   return (
     <Wrapper>
       {renderModal()}
@@ -106,10 +101,24 @@ const Employee: React.FC = () => {
         <TableBox
           width="80%"
           height="100%"
-          data={dataSource}
+          data={data}
           header={header}
           themeType={Theme.Main}
+          tHeight="60px"
         />
+        <Button
+          themeType={Theme.Primary}
+          buttonSizeType={Size.S}
+          sizeType={Size.M}
+          style={{
+            position: "absolute",
+            bottom: "100px",
+            right: "10%",
+            borderRadius: "50%",
+          }}
+        >
+          +
+        </Button>
       </Box>
     </Wrapper>
   );

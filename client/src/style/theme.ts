@@ -6,7 +6,7 @@ export const color: Record<Theme, string> = {
   [Theme.Normal]: "#242323",
   [Theme.Light]: "#e7e7e7",
   [Theme.Warning]: "#FDCF72",
-  [Theme.Error]: "#FF4D50",
+  [Theme.Dangerous]: "#FF4D50",
 };
 
 export const size: Record<Size, string> = {
