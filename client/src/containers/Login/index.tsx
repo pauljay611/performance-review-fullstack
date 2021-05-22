@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 const Login: React.FC = () => {
-  let history = useHistory();
+  const history = useHistory();
 
   function handleClick() {
     history.push("/admin");

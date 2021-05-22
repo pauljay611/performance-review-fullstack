@@ -4,18 +4,22 @@ const routes = [
   {
     path: "/",
     exact: true,
+    name: "Login",
     component: React.lazy(() => import("../containers/Login")),
   },
   {
     path: "/admin",
     component: React.lazy(() => import("../containers/Admin")),
+    name: "Admin",
     routes: [
       {
         path: "/admin/employees",
+        name: "Employees",
         component: React.lazy(() => import("../containers/Admin/Employees")),
       },
       {
         path: "/admin/reviews",
+        name: "Reviews",
         component: React.lazy(() => import("../containers/Admin/Reviews")),
       },
     ],
@@ -26,10 +30,12 @@ const routes = [
     routes: [
       {
         path: "/employee/feedbacks",
+        name: "Feedbacks",
         component: React.lazy(() => import("../containers/Employee/Feedbacks")),
       },
       {
         path: "/employee/reviews",
+        name: "Reviews",
         component: React.lazy(() => import("../containers/Employee/Reviews")),
       },
     ],

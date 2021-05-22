@@ -15,21 +15,16 @@ import routes from "../router";
 const Layout = styld.div`
   width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  border: 1px solid black;
   overflow: scroll;
 `;
 
 const Wrapper = styld.div`
   width: 100%;
   height: 100%;
-  border: 1px solid black;
 `;
 
 const App: React.FC = () => (
   <Layout>
-    <div>header</div>
     <Wrapper>{renderRoutes(routes)}</Wrapper>
   </Layout>
 );

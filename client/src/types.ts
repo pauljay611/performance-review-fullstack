@@ -48,3 +48,17 @@ export interface ICategory {
   name: string;
   description: string;
 }
+
+export enum Theme {
+  Primary = "primary",
+  Main = "main",
+  Normal = "normal",
+  Warning = "warning",
+  Error = "error",
+}
+
+export enum Size {
+  L = "L",
+  M = "M",
+  S = "S",
+}
