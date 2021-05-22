@@ -5,6 +5,7 @@ import { Size, Theme } from "../types";
 import Navbar, { Path } from "./Navbar";
 import { useHistory } from "react-router-dom";
 import Button from "./Button";
+import Cookies from "js-cookie";
 
 interface Props {
   paths: Path[];
@@ -40,6 +41,7 @@ const Header: React.FC<Props> = ({ paths }) => {
   };
 
   const handleLogoutClick = () => {
+    Cookies.remove("token");
     history.push("/");
   };
 

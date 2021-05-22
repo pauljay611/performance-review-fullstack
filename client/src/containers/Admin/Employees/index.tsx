@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import TableBox from "../../../component/TableBox";
@@ -63,10 +63,14 @@ const Employee: React.FC = () => {
     ];
   });
 
+  const closeModal = () => {
+    setOpen(false);
+  };
+
   function renderModal() {
     if (!open) return null;
     return (
-      <Modal title="Employee Details">
+      <Modal title="Employee Details" closeModal={closeModal}>
         <Form>
           <FormWrapper>
             <Input

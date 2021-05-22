@@ -7,6 +7,7 @@ import { color } from "../style/theme";
 
 interface Props {
   title: string;
+  closeModal: () => void;
 }
 
 const Wrapper = styled.div`
@@ -19,7 +20,6 @@ const Wrapper = styled.div`
   background-color: rgba(40, 35, 45, 0.7);
   top: 0;
   backdrop-filter: blur(2px);
-  z-index: 999;
 `;
 
 const ModalWrapper = styled.div`
@@ -43,11 +43,18 @@ const Body = styled.div`
   height: 90%;
 `;
 
-const Modal: React.FC<Props> = ({ title, children }) => {
+const Modal: React.FC<Props> = ({ title, closeModal, children }) => {
   const rootEl = document.getElementById("app");
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    e.nativeEvent.stopImmediatePropagation();
+    closeModal();
+  };
+
   return (
     <Portal element={rootEl}>
-      <Wrapper>
+      <Wrapper onClickCapture={handleClose}>
         <ModalWrapper>
           <Header>
             <Text sizeType={Size.L} themeType={Theme.Light}>

@@ -53,19 +53,27 @@ export const login = async (
     if (!user) {
       return res
         .status(400)
-        .json({ message: "Email or password does not match!" });
+        .json({ message: "Username or password does not match!" });
     }
     const hashedPassword = user.get("password") as string;
     const isCorrectPassword = await bcrypt.compare(password, hashedPassword);
     if (!isCorrectPassword) {
       return res
         .status(400)
-        .json({ message: "Email or password does not match!" });
+        .json({ message: "Username or password does not match!" });
     }
     const jwtToken = jsonwebtoken.sign(
       { id: user.get("id"), name: user.get("name") },
       SECRET
     );
+
+    const oneDayToSeconds = 24 * 60 * 60;
+    res.cookie("token", jwtToken, {
+      maxAge: oneDayToSeconds,
+      httpOnly: true,
+      // Forces to use https in production
+      secure: process.env.NODE_ENV === "production" ? true : false,
+    });
 
     res.status(200).json({ message: "Success", token: jwtToken });
   } catch (error) {

@@ -8,6 +8,9 @@ import "../style/reset.css";
 import "../style/global.css";
 import { renderRoutes } from "react-router-config";
 import routes from "../router";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const Layout = styld.div`
   width: 100vw;
@@ -21,12 +24,24 @@ const Wrapper = styld.div`
   height: 100%;
 `;
 
-const App: React.FC = () => (
-  <Provider store={store}>
-    <Layout>
-      <Wrapper>{renderRoutes(routes)}</Wrapper>
-    </Layout>
-  </Provider>
-);
+const App: React.FC = () => {
+  const history = useHistory();
+  useEffect(() => {
+    const cookie = Cookies.get("token");
+    if (cookie) {
+      history.push("/admin");
+      return;
+    }
+    history.push("/");
+  }, []);
+
+  return (
+    <Provider store={store}>
+      <Layout>
+        <Wrapper>{renderRoutes(routes)}</Wrapper>
+      </Layout>
+    </Provider>
+  );
+};
 
 export default App;

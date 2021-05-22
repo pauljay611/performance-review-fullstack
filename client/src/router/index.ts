@@ -13,6 +13,12 @@ const routes = [
     name: "Admin",
     routes: [
       {
+        path: "/admin/",
+        exact: true,
+        name: "Main",
+        component: React.lazy(() => import("../containers/Admin/Employees")),
+      },
+      {
         path: "/admin/employees",
         name: "Employees",
         component: React.lazy(() => import("../containers/Admin/Employees")),
