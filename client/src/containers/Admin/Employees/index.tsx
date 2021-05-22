@@ -4,6 +4,7 @@ import styled from "styled-components";
 import TableBox from "../../../component/TableBox";
 import Button from "../../../component/Button";
 import { Size, Theme } from "../../../types";
+import Modal from "../../../component/Modal";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -56,6 +57,7 @@ const Employee: React.FC = () => {
   console.log(1);
   return (
     <Wrapper>
+      <Modal title="Employee Details" />
       <Box>
         <TableBox width="80%" height="100%" data={dataSource} header={header} />
       </Box>

@@ -16,6 +16,7 @@ const Layout = styld.div`
   width: 100vw;
   height: 100vh;
   overflow: scroll;
+  position: relative;
 `;
 
 const Wrapper = styld.div`

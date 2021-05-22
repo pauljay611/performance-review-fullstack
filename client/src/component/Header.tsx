@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Text from "./Text";
+import Text from "./TextBox";
 import { Size, Theme } from "../types";
 import Navbar, { Path } from "./Navbar";
 import { useHistory } from "react-router-dom";

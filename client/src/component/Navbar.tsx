@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Text from "./Text";
+import Text from "./TextBox";
 import { Size, Theme } from "../types";
 import { color } from "../style/theme";
 import { useHistory } from "react-router-dom";

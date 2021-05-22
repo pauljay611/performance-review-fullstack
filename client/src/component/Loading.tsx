@@ -1,11 +1,13 @@
 import React from "react";
-import Text from "./Text";
+import Text from "./TextBox";
 import { Size, Theme } from "../types";
 
 const Loading: React.FC = () => {
   return (
     <div>
-      <Text text="Loading..." sizeType={Size.L} themeType={Theme.Primary} />
+      <Text sizeType={Size.L} themeType={Theme.Primary}>
+        Loading...
+      </Text>
     </div>
   );
 };

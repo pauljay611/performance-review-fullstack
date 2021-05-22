@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import InputBox from "../../component/InputBox";
 import { Size, Theme } from "../../types";
-import Text from "../../component/Text";
+import Text from "../../component/TextBox";
 import Button from "../../component/Button";
 
 const Box = styled.div`
@@ -48,6 +48,7 @@ const Login: React.FC = () => {
           height="40px"
           sizeType={Size.M}
           themeType={Theme.Light}
+          type="password"
           placeholder="Password"
         />
         <Button
