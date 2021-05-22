@@ -53,6 +53,7 @@ export enum Theme {
   Primary = "primary",
   Main = "main",
   Normal = "normal",
+  Light = "light",
   Warning = "warning",
   Error = "error",
 }
