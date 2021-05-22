@@ -33,12 +33,9 @@ const Login: React.FC = () => {
   return (
     <Wrapper>
       <Box>
-        <Text
-          text="PayPay Performance Review"
-          sizeType={Size.L}
-          themeType={Theme.Main}
-          onClick={handleClick}
-        />
+        <Text sizeType={Size.L} themeType={Theme.Main} onClick={handleClick}>
+          PayPay Performance Review
+        </Text>
         <InputBox
           width="300px"
           height="40px"
@@ -55,11 +52,12 @@ const Login: React.FC = () => {
         />
         <Button
           themeType={Theme.Primary}
-          text="Login"
           buttonSizeType={Size.M}
           onClick={handleClick}
           style={{ cursor: "pointer" }}
-        ></Button>
+        >
+          Login
+        </Button>
       </Box>
     </Wrapper>
   );

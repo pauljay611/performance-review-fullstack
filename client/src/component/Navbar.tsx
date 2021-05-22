@@ -40,7 +40,7 @@ const Navbar: React.FC<Props> = ({ paths }) => {
     <Wrapper>
       {paths.map(({ path, name }) => (
         <Item onClick={handleClick(Array.isArray(path) ? path[0] : path)}>
-          <Text sizeType={Size.M} text={name} />
+          <Text sizeType={Size.M}>{name}</Text>
         </Item>
       ))}
     </Wrapper>

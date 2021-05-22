@@ -15,9 +15,9 @@ export const TextComp = styled.div<{ size: string; theme: string }>`
 const Text: React.FC<BasStyleProps> = ({
   sizeType = Size.S,
   themeType = Theme.Normal,
-  text = "",
   style,
   onClick,
+  children,
 }) => {
   return (
     <TextComp
@@ -26,7 +26,7 @@ const Text: React.FC<BasStyleProps> = ({
       style={style}
       onClick={onClick}
     >
-      {text}
+      {children}
     </TextComp>
   );
 };

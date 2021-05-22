@@ -35,9 +35,9 @@ const Button: React.FC<Props> = ({
   sizeType = Size.S,
   buttonSizeType = Size.S,
   themeType = Theme.Normal,
-  text = "",
   style,
   onClick,
+  children,
 }) => {
   return (
     <ButtonComp
@@ -48,7 +48,7 @@ const Button: React.FC<Props> = ({
       style={style}
       onClick={onClick}
     >
-      {text}
+      {children}
     </ButtonComp>
   );
 };

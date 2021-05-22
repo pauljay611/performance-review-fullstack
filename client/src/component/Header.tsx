@@ -47,29 +47,32 @@ const Header: React.FC<Props> = ({ paths }) => {
     <Wrapper>
       <Left>
         <Text
-          text="PayPay Performance Review"
           sizeType={Size.L}
           themeType={Theme.Main}
           style={{ marginRight: "5%", cursor: "pointer" }}
           onClick={handleClick}
-        />
+        >
+          PayPay Performance Review
+        </Text>
         <Navbar paths={paths} />
       </Left>
       <Right>
         <Text
-          text="Hi Admin"
           sizeType={Size.M}
           themeType={Theme.Primary}
           style={{ marginRight: "5%", cursor: "pointer" }}
-        />
+        >
+          Hi Admin
+        </Text>
         <Button
-          text="Logout"
           sizeType={Size.M}
           buttonSizeType={Size.M}
           themeType={Theme.Main}
           style={{ marginRight: "5%", cursor: "pointer" }}
           onClick={handleLogoutClick}
-        />
+        >
+          Logout
+        </Button>
       </Right>
     </Wrapper>
   );
