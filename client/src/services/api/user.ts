@@ -35,3 +35,8 @@ export const updateUserAPI = (id: number, body: Omit<IUser, "id">) =>
   api.patch<IUser>(`/users/${id}`, body).then((res) => {
     return res.data;
   });
+
+export const deleteUserAPI = (id: number) =>
+  api.delete<IUser>(`/users/${id}`).then((res) => {
+    return res.data;
+  });

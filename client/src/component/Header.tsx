@@ -6,6 +6,7 @@ import Navbar, { Path } from "./Navbar";
 import { useHistory } from "react-router-dom";
 import Button from "./Button";
 import Cookies from "js-cookie";
+import { useUser } from "../hooks/user";
 
 interface Props {
   paths: Path[];
@@ -35,6 +36,7 @@ const Right = styled.div`
 
 const Header: React.FC<Props> = ({ paths }) => {
   const history = useHistory();
+  const { currentUser } = useUser();
 
   const handleClick = () => {
     history.push("/");
@@ -64,7 +66,7 @@ const Header: React.FC<Props> = ({ paths }) => {
           themeType={Theme.Primary}
           style={{ marginRight: "5%", cursor: "pointer" }}
         >
-          Hi Admin
+          Hi {currentUser?.name ?? ""}
         </Text>
         <Button
           sizeType={Size.M}

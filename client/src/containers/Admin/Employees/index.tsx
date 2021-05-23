@@ -10,10 +10,11 @@ import Form from "../../../component/Form";
 import Input from "../../../component/InputBox";
 import { useUser, useUsers } from "../../../hooks/user";
 import { useDispatch } from "react-redux";
-import { addUser, fetchAllUsers } from "../../../store/users/actions";
+import { deleteUser } from "../../../store/users/actions";
 import TextBox from "../../../component/TextBox";
 import UpdateFormModal from "./UpdateFormModal";
 import CreateFormModal from "./CreateFormModal";
+import Alert from "../../../component/Alert";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -46,7 +47,7 @@ interface TableProps {
   user: IUser;
 }
 
-const TableButton: React.FC<TableProps> = ({ theme, text, user }) => {
+const TableUpdateButton: React.FC<TableProps> = ({ theme, text, user }) => {
   const [openUpdate, setOpenUpdate] = useState(false);
 
   const openUpdateModal = () => {
@@ -76,6 +77,36 @@ const TableButton: React.FC<TableProps> = ({ theme, text, user }) => {
   );
 };
 
+const TableDeleteButton: React.FC<TableProps> = ({ theme, text, user }) => {
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const confirm = () => {
+    dispatch(deleteUser({ id: user.id }));
+    // window.location.reload();
+  };
+
+  function renderUpdateModal() {
+    if (!open) return null;
+    return (
+      <Alert message={`Delete User ${user.username} ??`} confirm={confirm} />
+    );
+  }
+
+  return (
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      {renderUpdateModal()}
+      <Button buttonSizeType={Size.M} themeType={theme} onClick={openModal}>
+        {text}
+      </Button>
+    </div>
+  );
+};
+
 const newDefaultUser: Omit<IUser, "id"> = {
   username: "",
   name: "",
@@ -93,8 +124,8 @@ const Employee: React.FC = () => {
       user.id,
       user.username,
       user.name,
-      <TableButton theme={Theme.Warning} text="update" user={user} />,
-      <TableButton theme={Theme.Dangerous} text="delete" user={user} />,
+      <TableUpdateButton theme={Theme.Warning} text="update" user={user} />,
+      <TableDeleteButton theme={Theme.Dangerous} text="delete" user={user} />,
     ];
   });
 

@@ -8,7 +8,7 @@ import { Size, Theme } from "../../types";
 import Text from "../../component/TextBox";
 import Button from "../../component/Button";
 import { loginAPI } from "../../services/api";
-import Modal from "../../component/Modal";
+import Alert from "../../component/Alert";
 
 const Box = styled.div`
   width: 50%;
@@ -61,18 +61,7 @@ const Login: React.FC = () => {
 
   function renderModal() {
     if (!open) return;
-    return (
-      <Modal title="Message">
-        <Text sizeType={Size.M}>{errorMsg}</Text>
-        <Button
-          themeType={Theme.Primary}
-          buttonSizeType={Size.M}
-          onClick={closeModal}
-        >
-          Close
-        </Button>
-      </Modal>
-    );
+    return <Alert message={errorMsg} confirm={closeModal} />;
   }
 
   return (

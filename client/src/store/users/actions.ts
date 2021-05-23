@@ -64,6 +64,21 @@ export const updateUserError = createAction(
   (error: Error) => error
 )();
 
+export const deleteUserSuccess = createAction(
+  constants.DELETE_USER_SUCCESS,
+  (user: IUser) => user
+)();
+
+export const deleteUser = createAction(
+  constants.DELETE_USER,
+  (payload: { id: number }) => payload
+)();
+
+export const deleteUserError = createAction(
+  constants.DELETE_USER_SUCCESS,
+  (error: Error) => error
+)();
+
 export default {
   fetchAllUsersSuccess,
   fetchAllUsers,
@@ -77,4 +92,7 @@ export default {
   updateUserSuccess,
   updateUser,
   updateUserError,
+  deleteUser,
+  deleteUserError,
+  deleteUserSuccess,
 } as const;

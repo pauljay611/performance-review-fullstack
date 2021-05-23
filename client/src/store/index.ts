@@ -13,6 +13,7 @@ import {
   getUserEpic,
   addUserEpic,
   updateUserEpic,
+  deleteUserEpic,
 } from "./users/epics";
 
 import reviewsReducer from "./reviews/reducers";
@@ -53,7 +54,8 @@ const rootEpic = combineEpics(
   getAllUsersEpic,
   getUserEpic,
   addUserEpic,
-  updateUserEpic
+  updateUserEpic,
+  deleteUserEpic
 );
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

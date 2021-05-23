@@ -54,6 +54,18 @@ const reducer = createReducer<UserState, UsersActionsType>(initialState)
   })
   .handleAction(actions.updateUserError, (state, actions) => {
     return { ...state, loading: false, error: actions.payload };
+  })
+  .handleAction(actions.deleteUserSuccess, (state) => {
+    return {
+      ...state,
+      loading: false,
+    };
+  })
+  .handleAction(actions.deleteUser, (state) => {
+    return { ...state, loading: true };
+  })
+  .handleAction(actions.deleteUserError, (state, actions) => {
+    return { ...state, loading: false, error: actions.payload };
   });
 
 export default reducer;

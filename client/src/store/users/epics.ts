@@ -78,3 +78,20 @@ export const updateUserEpic: Epic<
     )
   );
 };
+
+export const deleteUserEpic: Epic<
+  UsersActionsType,
+  UsersActionsType,
+  RootState,
+  typeof API
+> = (action$, _, { deleteUserAPI }) => {
+  return action$.pipe(
+    filter(isOfType(constants.DELETE_USER)),
+    mergeMap((action) =>
+      from(deleteUserAPI(action.payload.id)).pipe(
+        map(actions.deleteUserSuccess),
+        catchError((err) => of(actions.deleteUserError(err)))
+      )
+    )
+  );
+};
