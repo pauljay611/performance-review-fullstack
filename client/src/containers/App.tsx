@@ -35,7 +35,7 @@ const App: React.FC = () => {
       history.push("/employee");
       return;
     }
-    history.push("/");
+    // history.push("/");
   }, [currentUser, error, loading, history]);
 
   return (

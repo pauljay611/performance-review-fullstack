@@ -7,7 +7,6 @@ import { color } from "../style/theme";
 
 interface Props {
   title: string;
-  closeModal: () => void;
 }
 
 const Wrapper = styled.div`
@@ -43,19 +42,11 @@ const Body = styled.div`
   height: 90%;
 `;
 
-const Modal: React.FC<Props> = ({ title, closeModal, children }) => {
+const Modal: React.FC<Props> = ({ title, children }) => {
   const rootEl = document.getElementById("app");
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (modalRef.current) {
-      modalRef.current.addEventListener("click", closeModal);
-    }
-  }, [closeModal]);
-
   return (
     <Portal element={rootEl}>
-      <Wrapper ref={modalRef}>
+      <Wrapper>
         <ModalWrapper>
           <Header>
             <Text sizeType={Size.L} themeType={Theme.Light}>

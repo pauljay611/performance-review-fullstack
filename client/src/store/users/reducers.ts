@@ -7,27 +7,53 @@ const initialState: UserState = {
 };
 
 const reducer = createReducer<UserState, UsersActionsType>(initialState)
-  .handleAction(actions.fetchAllUsersSuccess, (_, actions) => ({
+  .handleAction(actions.fetchAllUsersSuccess, (state, actions) => ({
+    ...state,
     users: actions.payload,
     loading: false,
   }))
   .handleAction(actions.fetchAllUsers, (state) => {
     return { users: state.users, loading: true };
   })
-  .handleAction(actions.fetchAllUsersError, (_, actions) => {
-    return { users: [], loading: false, error: actions.payload };
+  .handleAction(actions.fetchAllUsersError, (state, actions) => {
+    return { ...state, users: [], loading: false, error: actions.payload };
   })
-  .handleAction(actions.fetchUserSuccess, (_, actions) => {
+  .handleAction(actions.fetchUserSuccess, (state, actions) => {
     return {
+      ...state,
       currentUser: actions.payload,
       loading: false,
     };
   })
   .handleAction(actions.fetchUser, (state) => {
-    return { currentUser: state.currentUser, loading: true };
+    return { ...state, currentUser: state.currentUser, loading: true };
   })
-  .handleAction(actions.fetchUserError, (_, actions) => {
-    return { loading: false, error: actions.payload };
+  .handleAction(actions.fetchUserError, (state, actions) => {
+    return { ...state, loading: false, error: actions.payload };
+  })
+  .handleAction(actions.addUserSuccess, (state) => {
+    return {
+      ...state,
+      loading: false,
+    };
+  })
+  .handleAction(actions.addUser, (state) => {
+    return { ...state, loading: true };
+  })
+  .handleAction(actions.addUserError, (state, actions) => {
+    return { ...state, loading: false, error: actions.payload };
+  })
+  .handleAction(actions.updateUserSuccess, (state) => {
+    return {
+      ...state,
+      loading: false,
+    };
+  })
+  .handleAction(actions.updateUser, (state) => {
+    return { ...state, loading: true };
+  })
+  .handleAction(actions.updateUserError, (state, actions) => {
+    return { ...state, loading: false, error: actions.payload };
   });
 
 export default reducer;

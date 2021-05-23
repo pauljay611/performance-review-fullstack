@@ -8,7 +8,12 @@ import { combineEpics, createEpicMiddleware } from "redux-observable";
 import { createStore, applyMiddleware } from "redux";
 
 import { getAllReviewsEpic } from "./reviews/epics";
-import { getAllUsersEpic, getUserEpic } from "./users/epics";
+import {
+  getAllUsersEpic,
+  getUserEpic,
+  addUserEpic,
+  updateUserEpic,
+} from "./users/epics";
 
 import reviewsReducer from "./reviews/reducers";
 import usersReducer from "./users/reducers";
@@ -43,7 +48,13 @@ const epicMiddleware = createEpicMiddleware<
 
 const rootReducer = combineReducers(reducers);
 
-const rootEpic = combineEpics(getAllReviewsEpic, getAllUsersEpic, getUserEpic);
+const rootEpic = combineEpics(
+  getAllReviewsEpic,
+  getAllUsersEpic,
+  getUserEpic,
+  addUserEpic,
+  updateUserEpic
+);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

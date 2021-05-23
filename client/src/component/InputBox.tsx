@@ -8,8 +8,10 @@ interface Props extends BasStyleProps {
   height?: string;
   placeholder?: string;
   type?: string;
-  value?: string;
-  handleChange?: (e: React.ChangeEvent) => void;
+  value?: any;
+  name?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 }
 
 const Wrapper = styled.div<{ width: string; height: string }>`
@@ -43,20 +45,24 @@ const InputBox: React.FC<Props> = ({
   height = "100px",
   themeType = Theme.Main,
   style,
-  handleChange,
+  onChange,
   value,
   placeholder = "",
   type = "text",
+  name,
+  disabled,
 }) => {
   return (
     <Wrapper width={width} height={height}>
       <InputWrapper
-        onChange={handleChange}
+        onChange={onChange}
         theme={color[themeType]}
         style={style}
         type={type}
         placeholder={placeholder}
         value={value}
+        name={name}
+        disabled={disabled}
       ></InputWrapper>
     </Wrapper>
   );

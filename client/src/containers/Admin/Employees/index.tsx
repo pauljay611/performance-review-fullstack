@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 
 import TableBox from "../../../component/TableBox";
 import Button from "../../../component/Button";
-import { Size, Theme } from "../../../types";
+import { Size, Theme, IUser } from "../../../types";
 import Modal from "../../../component/Modal";
 import Form from "../../../component/Form";
 import Input from "../../../component/InputBox";
-import { useUser } from "../../../hooks/user";
+import { useUser, useUsers } from "../../../hooks/user";
+import { useDispatch } from "react-redux";
+import { addUser, fetchAllUsers } from "../../../store/users/actions";
+import TextBox from "../../../component/TextBox";
+import UpdateFormModal from "./UpdateFormModal";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -37,42 +42,83 @@ const header = ["key", "username", "name", "update", "delete"];
 interface TableProps {
   theme: Theme;
   text: string;
+  user: IUser;
 }
 
-const TableButton: React.FC<TableProps> = ({ theme, text }) => {
+const TableButton: React.FC<TableProps> = ({ theme, text, user }) => {
+  const [openUpdate, setOpenUpdate] = useState(false);
+
+  const openUpdateModal = () => {
+    setOpenUpdate(true);
+  };
+
+  const closeUpdateModal = () => {
+    setOpenUpdate(false);
+  };
+
+  function renderUpdateModal() {
+    if (!openUpdate) return null;
+    return <UpdateFormModal user={user} closeModal={closeUpdateModal} />;
+  }
+
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Button buttonSizeType={Size.M} themeType={theme}>
+      {renderUpdateModal()}
+      <Button
+        buttonSizeType={Size.M}
+        themeType={theme}
+        onClick={openUpdateModal}
+      >
         {text}
       </Button>
     </div>
   );
 };
 
-const Employee: React.FC = () => {
-  const [open, setOpen] = useState(false);
-  const { users = [], loading } = useUser();
+const newDefaultUser: Omit<IUser, "id"> = {
+  username: "",
+  name: "",
+  password: "",
+  user_id: uuidv4(),
+  is_admin: false,
+};
 
-  console.log(users);
+const Employee: React.FC = () => {
+  const [openNew, setOpenNew] = useState(false);
+  const { users = [], loading } = useUsers();
+  const [newUser, setUser] = useState<Omit<IUser, "id">>(newDefaultUser);
+  const dispatch = useDispatch();
+  const handleAddUser = useCallback(() => {
+    dispatch(addUser(newUser));
+    window.location.reload();
+  }, [newUser]);
+
+  const handleNewUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const data = users.map((user) => {
     return [
       user.id,
       user.username,
       user.name,
-      <TableButton theme={Theme.Warning} text="update" />,
-      <TableButton theme={Theme.Dangerous} text="delete" />,
+      <TableButton theme={Theme.Warning} text="update" user={user} />,
+      <TableButton theme={Theme.Dangerous} text="delete" user={user} />,
     ];
   });
 
-  const closeModal = () => {
-    setOpen(false);
+  const closeNewModal = () => {
+    setOpenNew(false);
+  };
+
+  const openNewModal = () => {
+    setOpenNew(true);
   };
 
   function renderModal() {
-    if (!open) return null;
+    if (!openNew) return null;
     return (
-      <Modal title="Employee Details" closeModal={closeModal}>
+      <Modal title="New Employee">
         <Form>
           <FormWrapper>
             <Input
@@ -81,16 +127,60 @@ const Employee: React.FC = () => {
               style={{ borderRadius: "10px" }}
               placeholder="Username"
               themeType={Theme.Light}
+              name="username"
+              value={newUser.username}
+              onChange={handleNewUserChange}
             />
             <Input
               width="80%"
               height="50px"
               style={{ borderRadius: "10px" }}
               placeholder="name"
+              name="name"
+              value={newUser.name}
               themeType={Theme.Light}
+              onChange={handleNewUserChange}
             />
-            <Button themeType={Theme.Primary} buttonSizeType={Size.M}>
-              Update
+            <Input
+              width="80%"
+              height="50px"
+              style={{ borderRadius: "10px" }}
+              placeholder="password"
+              name="password"
+              value={newUser.password}
+              themeType={Theme.Light}
+              onChange={handleNewUserChange}
+            />
+            <TextBox
+              style={{ width: "80%", textAlign: "center" }}
+              sizeType={Size.S}
+            >
+              Is admin ????
+            </TextBox>
+            <Input
+              width="80%"
+              height="20px"
+              style={{ borderRadius: "10px" }}
+              placeholder="admin"
+              name="is_admin"
+              type="checkBox"
+              value={newUser.is_admin}
+              themeType={Theme.Light}
+              onChange={handleNewUserChange}
+            />
+            <Button
+              themeType={Theme.Primary}
+              buttonSizeType={Size.M}
+              onClick={handleAddUser}
+            >
+              Add
+            </Button>
+            <Button
+              themeType={Theme.Dangerous}
+              buttonSizeType={Size.M}
+              onClick={closeNewModal}
+            >
+              Close
             </Button>
           </FormWrapper>
         </Form>
@@ -122,6 +212,7 @@ const Employee: React.FC = () => {
             right: "10%",
             borderRadius: "50%",
           }}
+          onClick={openNewModal}
         >
           +
         </Button>

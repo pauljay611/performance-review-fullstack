@@ -44,3 +44,37 @@ export const getUserEpic: Epic<
     )
   );
 };
+
+export const addUserEpic: Epic<
+  UsersActionsType,
+  UsersActionsType,
+  RootState,
+  typeof API
+> = (action$, _, { addUserAPI }) => {
+  return action$.pipe(
+    filter(isOfType(constants.ADD_USER)),
+    mergeMap((action) =>
+      from(addUserAPI(action.payload)).pipe(
+        map(actions.addUserSuccess),
+        catchError((err) => of(actions.addUserError(err)))
+      )
+    )
+  );
+};
+
+export const updateUserEpic: Epic<
+  UsersActionsType,
+  UsersActionsType,
+  RootState,
+  typeof API
+> = (action$, _, { updateUserAPI }) => {
+  return action$.pipe(
+    filter(isOfType(constants.UPDATE_USER)),
+    mergeMap((action) =>
+      from(updateUserAPI(action.payload.id, action.payload.body)).pipe(
+        map(actions.updateUserSuccess),
+        catchError((err) => of(actions.updateUserError(err)))
+      )
+    )
+  );
+};

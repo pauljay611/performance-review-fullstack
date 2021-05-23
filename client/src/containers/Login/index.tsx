@@ -62,8 +62,15 @@ const Login: React.FC = () => {
   function renderModal() {
     if (!open) return;
     return (
-      <Modal title="Message" closeModal={closeModal}>
+      <Modal title="Message">
         <Text sizeType={Size.M}>{errorMsg}</Text>
+        <Button
+          themeType={Theme.Primary}
+          buttonSizeType={Size.M}
+          onClick={closeModal}
+        >
+          Close
+        </Button>
       </Modal>
     );
   }
@@ -81,7 +88,7 @@ const Login: React.FC = () => {
           sizeType={Size.M}
           themeType={Theme.Light}
           placeholder="Username"
-          handleChange={handleUsername}
+          onChange={handleUsername}
         />
         <InputBox
           width="300px"
@@ -90,7 +97,7 @@ const Login: React.FC = () => {
           themeType={Theme.Light}
           type="password"
           placeholder="Password"
-          handleChange={handlePassword}
+          onChange={handlePassword}
         />
         <Button
           themeType={Theme.Primary}
