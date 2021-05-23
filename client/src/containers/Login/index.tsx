@@ -10,6 +10,7 @@ import Button from "../../component/Button";
 import { loginAPI } from "../../services/api";
 import Alert from "../../component/Alert";
 import { usePageGuard } from "../../hooks/usePageGuard";
+import { useUser } from "../../hooks/useUser";
 
 const Box = styled.div`
   width: 50%;
@@ -33,7 +34,16 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  usePageGuard();
+  const { currentUser, loading } = useUser();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (loading) return;
+    if (currentUser) {
+      const defaultPath = currentUser.is_admin ? "/admin" : "/employee";
+      history.push(defaultPath);
+    }
+  }, [loading, currentUser]);
 
   const handleClick = useCallback(() => {
     loginAPI({ username, password })

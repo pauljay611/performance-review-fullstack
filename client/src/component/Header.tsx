@@ -37,7 +37,6 @@ const Right = styled.div`
 const Header: React.FC<Props> = ({ paths }) => {
   const history = useHistory();
   const { currentUser } = useUser();
-
   const handleClick = () => {
     history.push("/");
   };

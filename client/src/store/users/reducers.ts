@@ -13,7 +13,7 @@ const reducer = createReducer<UserState, UsersActionsType>(initialState)
     loading: false,
   }))
   .handleAction(actions.fetchAllUsers, (state) => {
-    return { users: state.users, loading: true };
+    return { ...state, users: state.users, loading: true };
   })
   .handleAction(actions.fetchAllUsersError, (state, actions) => {
     return { ...state, users: [], loading: false, error: actions.payload };

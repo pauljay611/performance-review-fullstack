@@ -24,7 +24,6 @@ const header = ["key", "reviewer_id", "employee_id", "feedback", "is_reviewed"];
 
 const Employee: React.FC = () => {
   const { currentUser } = useUser();
-  usePageGuard();
   const { reviews = [], loading } = useReviews({ eid: currentUser?.id });
   const data = reviews.map((review) => {
     return [
@@ -35,7 +34,6 @@ const Employee: React.FC = () => {
       review.is_reviewed ? "yes" : "no",
     ];
   });
-  console.log(data);
 
   if (loading) return null;
 

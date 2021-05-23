@@ -8,11 +8,9 @@ import { Size, Theme, IUser } from "../../../types";
 import { useUsers } from "../../../hooks/useUser";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../../../store/users/actions";
-import TextBox from "../../../component/TextBox";
 import UpdateFormModal from "./UpdateFormModal";
 import CreateFormModal from "./CreateFormModal";
 import Alert from "../../../component/Alert";
-import { usePageGuard } from "../../../hooks/usePageGuard";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -116,7 +114,6 @@ const newDefaultUser: Omit<IUser, "id"> = {
 const Employee: React.FC = () => {
   const [openNew, setOpenNew] = useState(false);
   const { users = [], loading } = useUsers();
-  usePageGuard();
   const data = users.map((user) => {
     return [
       user.id,
