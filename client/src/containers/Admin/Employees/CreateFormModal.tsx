@@ -13,10 +13,10 @@ import TextBox from "../../../component/TextBox";
 import Button from "../../../component/Button";
 import Input from "../../../component/InputBox";
 import { IUser } from "../../../types";
-import { updateUser } from "../../../store/users/actions";
+import { addUser } from "../../../store/users/actions";
 
 interface Props {
-  user: IUser;
+  user: Omit<IUser, "id">;
   closeModal: () => void;
 }
 
@@ -30,24 +30,20 @@ const FormWrapper = styled.div`
   padding: 5% 5%;
 `;
 
-const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
-  const [updatedUser, setUpdatedUser] = useState<IUser>(user);
+const CreateFormModal: React.FC<Props> = ({ closeModal, user }) => {
+  const [newUser, setUser] = useState<Omit<IUser, "id">>(user);
   const dispatch = useDispatch();
-
-  const handleUpdateUser = useCallback(() => {
-    dispatch(updateUser({ id: user.id, body: updatedUser }));
+  const handleAddUser = useCallback(() => {
+    dispatch(addUser(newUser));
     window.location.reload();
-  }, [updatedUser]);
+  }, [newUser]);
 
-  const handleUpdatedUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatedUser((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const handleNewUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
-    <Modal title="Update Employee">
+    <Modal title="New Employee">
       <Form>
         <FormWrapper>
           <Input
@@ -57,18 +53,8 @@ const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
             placeholder="Username"
             themeType={Theme.Light}
             name="username"
-            value={updatedUser.id}
-            disabled
-          />
-          <Input
-            width="80%"
-            height="50px"
-            style={{ borderRadius: "10px" }}
-            placeholder="Username"
-            themeType={Theme.Light}
-            name="username"
-            value={updatedUser.username}
-            onChange={handleUpdatedUserChange}
+            value={newUser.username}
+            onChange={handleNewUserChange}
           />
           <Input
             width="80%"
@@ -76,9 +62,9 @@ const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
             style={{ borderRadius: "10px" }}
             placeholder="name"
             name="name"
-            value={updatedUser.name}
+            value={newUser.name}
             themeType={Theme.Light}
-            onChange={handleUpdatedUserChange}
+            onChange={handleNewUserChange}
           />
           <Input
             width="80%"
@@ -86,10 +72,9 @@ const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
             style={{ borderRadius: "10px" }}
             placeholder="password"
             name="password"
-            type="password"
-            value={updatedUser.password}
+            value={newUser.password}
             themeType={Theme.Light}
-            onChange={handleUpdatedUserChange}
+            onChange={handleNewUserChange}
           />
           <TextBox
             style={{ width: "80%", textAlign: "center" }}
@@ -104,14 +89,14 @@ const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
             placeholder="admin"
             name="is_admin"
             type="checkBox"
-            value={updatedUser.is_admin}
+            value={newUser.is_admin}
             themeType={Theme.Light}
-            onChange={handleUpdatedUserChange}
+            onChange={handleNewUserChange}
           />
           <Button
             themeType={Theme.Primary}
             buttonSizeType={Size.M}
-            onClick={handleUpdateUser}
+            onClick={handleAddUser}
           >
             Add
           </Button>
@@ -128,4 +113,4 @@ const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
   );
 };
 
-export default UpdateFormModal;
+export default CreateFormModal;

@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { addUser, fetchAllUsers } from "../../../store/users/actions";
 import TextBox from "../../../component/TextBox";
 import UpdateFormModal from "./UpdateFormModal";
+import CreateFormModal from "./CreateFormModal";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -86,16 +87,6 @@ const newDefaultUser: Omit<IUser, "id"> = {
 const Employee: React.FC = () => {
   const [openNew, setOpenNew] = useState(false);
   const { users = [], loading } = useUsers();
-  const [newUser, setUser] = useState<Omit<IUser, "id">>(newDefaultUser);
-  const dispatch = useDispatch();
-  const handleAddUser = useCallback(() => {
-    dispatch(addUser(newUser));
-    window.location.reload();
-  }, [newUser]);
-
-  const handleNewUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   const data = users.map((user) => {
     return [
@@ -115,84 +106,16 @@ const Employee: React.FC = () => {
     setOpenNew(true);
   };
 
-  function renderModal() {
+  function renderCreateModal() {
     if (!openNew) return null;
-    return (
-      <Modal title="New Employee">
-        <Form>
-          <FormWrapper>
-            <Input
-              width="80%"
-              height="50px"
-              style={{ borderRadius: "10px" }}
-              placeholder="Username"
-              themeType={Theme.Light}
-              name="username"
-              value={newUser.username}
-              onChange={handleNewUserChange}
-            />
-            <Input
-              width="80%"
-              height="50px"
-              style={{ borderRadius: "10px" }}
-              placeholder="name"
-              name="name"
-              value={newUser.name}
-              themeType={Theme.Light}
-              onChange={handleNewUserChange}
-            />
-            <Input
-              width="80%"
-              height="50px"
-              style={{ borderRadius: "10px" }}
-              placeholder="password"
-              name="password"
-              value={newUser.password}
-              themeType={Theme.Light}
-              onChange={handleNewUserChange}
-            />
-            <TextBox
-              style={{ width: "80%", textAlign: "center" }}
-              sizeType={Size.S}
-            >
-              Is admin ????
-            </TextBox>
-            <Input
-              width="80%"
-              height="20px"
-              style={{ borderRadius: "10px" }}
-              placeholder="admin"
-              name="is_admin"
-              type="checkBox"
-              value={newUser.is_admin}
-              themeType={Theme.Light}
-              onChange={handleNewUserChange}
-            />
-            <Button
-              themeType={Theme.Primary}
-              buttonSizeType={Size.M}
-              onClick={handleAddUser}
-            >
-              Add
-            </Button>
-            <Button
-              themeType={Theme.Dangerous}
-              buttonSizeType={Size.M}
-              onClick={closeNewModal}
-            >
-              Close
-            </Button>
-          </FormWrapper>
-        </Form>
-      </Modal>
-    );
+    return <CreateFormModal user={newDefaultUser} closeModal={closeNewModal} />;
   }
 
   if (loading) return null;
 
   return (
     <Wrapper>
-      {renderModal()}
+      {renderCreateModal()}
       <Box>
         <TableBox
           width="80%"
