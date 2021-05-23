@@ -25,6 +25,24 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        username: "user1",
+        user_id: uuidv4(),
+        password: hashedPwd2,
+        name: "user1",
+        is_admin: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        username: "user2",
+        user_id: uuidv4(),
+        password: hashedPwd2,
+        name: "user2",
+        is_admin: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
