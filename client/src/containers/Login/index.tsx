@@ -9,6 +9,7 @@ import Text from "../../component/TextBox";
 import Button from "../../component/Button";
 import { loginAPI } from "../../services/api";
 import Alert from "../../component/Alert";
+import { usePageGuard } from "../../hooks/usePageGuard";
 
 const Box = styled.div`
   width: 50%;
@@ -32,16 +33,15 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const history = useHistory();
+  usePageGuard();
 
   const handleClick = useCallback(() => {
     loginAPI({ username, password })
       .then((res) => {
         Cookies.set("token", res.token);
-        history.push("/admin");
+        window.location.reload();
       })
       .catch((error) => {
-        console.error(error);
         setErrorMsg("Username or email not matched");
         setOpen(true);
       });

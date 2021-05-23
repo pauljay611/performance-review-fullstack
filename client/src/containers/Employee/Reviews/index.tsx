@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import TableBox from "../../../component/TableBox";
 import { Theme, IReview, Size } from "../../../types";
-import { useReviews } from "../../../hooks/review";
-import { useUser } from "../../../hooks/user";
+import { useReviews } from "../../../hooks/useReview";
+import { useUser } from "../../../hooks/useUser";
 import UpdateFormModal from "./UpdateFormModal";
 import Button from "../../../component/Button";
 

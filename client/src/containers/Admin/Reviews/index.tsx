@@ -4,12 +4,13 @@ import styled from "styled-components";
 import TableBox from "../../../component/TableBox";
 import Button from "../../../component/Button";
 import { Size, Theme, IReview } from "../../../types";
-import { useReviews } from "../../../hooks/review";
+import { useReviews } from "../../../hooks/useReview";
 import { useDispatch } from "react-redux";
 import { deleteReview } from "../../../store/reviews/actions";
 import UpdateFormModal from "./UpdateFormModal";
 import CreateFormModal from "./CreateFormModal";
 import Alert from "../../../component/Alert";
+import { usePageGuard } from "../../../hooks/usePageGuard";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -110,7 +111,7 @@ const newDefaultReview: Omit<IReview, "id"> = {
 const Employee: React.FC = () => {
   const [openNew, setOpenNew] = useState(false);
   const { reviews = [], loading } = useReviews({});
-
+  usePageGuard();
   const data = reviews.map((review) => {
     return [
       review.id,

@@ -6,7 +6,7 @@ import Navbar, { Path } from "./Navbar";
 import { useHistory } from "react-router-dom";
 import Button from "./Button";
 import Cookies from "js-cookie";
-import { useUser } from "../hooks/user";
+import { useUser } from "../hooks/useUser";
 
 interface Props {
   paths: Path[];

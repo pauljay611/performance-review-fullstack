@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 import TableBox from "../../../component/TableBox";
 import { Theme } from "../../../types";
-import { useReviews } from "../../../hooks/review";
-import { useUser } from "../../../hooks/user";
+import { useReviews } from "../../../hooks/useReview";
+import { useUser } from "../../../hooks/useUser";
+import { usePageGuard } from "../../../hooks/usePageGuard";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -24,7 +25,6 @@ const header = ["key", "reviewer_id", "employee_id", "feedback", "is_reviewed"];
 const Employee: React.FC = () => {
   const { currentUser } = useUser();
   const { reviews = [], loading } = useReviews({ eid: currentUser?.id });
-
   const data = reviews.map((review) => {
     return [
       review.id,
