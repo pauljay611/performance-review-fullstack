@@ -17,6 +17,7 @@ interface Props extends BasStyleProps {
 const Wrapper = styled.div<{ width: string; height: string }>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+  margin: 1%;
 `;
 
 const InputWrapper = styled.input.attrs<{

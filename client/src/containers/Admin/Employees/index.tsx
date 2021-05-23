@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
@@ -11,6 +11,7 @@ import { deleteUser } from "../../../store/users/actions";
 import UpdateFormModal from "./UpdateFormModal";
 import CreateFormModal from "./CreateFormModal";
 import Alert from "../../../component/Alert";
+import InputBox from "../../../component/InputBox";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -21,6 +22,7 @@ const Wrapper = styled.div`
 const Box = styled.div`
   height: 100%;
   display: flex;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -105,16 +107,44 @@ const newDefaultUser: Omit<IUser, "id"> = {
 
 const Employee: React.FC = () => {
   const [openNew, setOpenNew] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
   const { users = [], loading } = useUsers();
-  const data = users.map((user) => {
-    return [
-      user.id,
-      user.username,
-      user.name,
-      <TableUpdateButton theme={Theme.Warning} text="update" user={user} />,
-      <TableDeleteButton theme={Theme.Dangerous} text="delete" user={user} />,
-    ];
-  });
+  const data = useMemo(() => {
+    if (!searchKey) {
+      return users.map((user) => {
+        return [
+          user.id,
+          user.username,
+          user.name,
+          <TableUpdateButton theme={Theme.Warning} text="update" user={user} />,
+          <TableDeleteButton
+            theme={Theme.Dangerous}
+            text="delete"
+            user={user}
+          />,
+        ];
+      });
+    }
+    return users
+      .filter((user) => user.name.includes(searchKey))
+      .map((user) => {
+        return [
+          user.id,
+          user.username,
+          user.name,
+          <TableUpdateButton theme={Theme.Warning} text="update" user={user} />,
+          <TableDeleteButton
+            theme={Theme.Dangerous}
+            text="delete"
+            user={user}
+          />,
+        ];
+      });
+  }, [searchKey, users]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKey(e.target.value);
+  };
 
   const closeNewModal = () => {
     setOpenNew(false);
@@ -134,10 +164,20 @@ const Employee: React.FC = () => {
   return (
     <Wrapper>
       {renderCreateModal()}
+
       <Box>
+        <InputBox
+          width="80%"
+          height="50px"
+          style={{ borderRadius: "10px" }}
+          placeholder="Username"
+          themeType={Theme.Light}
+          value={searchKey}
+          onChange={handleSearchChange}
+        ></InputBox>
         <TableBox
           width="80%"
-          height="100%"
+          height="90%"
           data={data}
           header={header}
           themeType={Theme.Main}

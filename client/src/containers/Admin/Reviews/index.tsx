@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 
 import TableBox from "../../../component/TableBox";
@@ -10,6 +10,7 @@ import { deleteReview } from "../../../store/reviews/actions";
 import UpdateFormModal from "./UpdateFormModal";
 import CreateFormModal from "./CreateFormModal";
 import Alert from "../../../component/Alert";
+import InputBox from "../../../component/InputBox";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,6 +21,7 @@ const Wrapper = styled.div`
 const Box = styled.div`
   height: 100%;
   display: flex;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -111,22 +113,56 @@ const newDefaultReview: Omit<IReview, "id"> = {
 
 const Employee: React.FC = () => {
   const [openNew, setOpenNew] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
   const { reviews = [], loading } = useReviews({});
-  const data = reviews.map((review) => {
-    return [
-      review.id,
-      review.reviewer_id,
-      review.employee_id,
-      review.feedback,
-      review.is_reviewed ? "yes" : "no",
-      <TableUpdateButton theme={Theme.Warning} text="update" review={review} />,
-      <TableDeleteButton
-        theme={Theme.Dangerous}
-        text="delete"
-        review={review}
-      />,
-    ];
-  });
+  const data = useMemo(() => {
+    if (!searchKey) {
+      return reviews.map((review) => {
+        return [
+          review.id,
+          review.reviewer_id,
+          review.employee_id,
+          review.feedback,
+          review.is_reviewed ? "yes" : "no",
+          <TableUpdateButton
+            theme={Theme.Warning}
+            text="update"
+            review={review}
+          />,
+          <TableDeleteButton
+            theme={Theme.Dangerous}
+            text="delete"
+            review={review}
+          />,
+        ];
+      });
+    }
+    return reviews
+      .filter((review) => review.employee_id === +searchKey)
+      .map((review) => {
+        return [
+          review.id,
+          review.reviewer_id,
+          review.employee_id,
+          review.feedback,
+          review.is_reviewed ? "yes" : "no",
+          <TableUpdateButton
+            theme={Theme.Warning}
+            text="update"
+            review={review}
+          />,
+          <TableDeleteButton
+            theme={Theme.Dangerous}
+            text="delete"
+            review={review}
+          />,
+        ];
+      });
+  }, [searchKey, reviews]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKey(e.target.value);
+  };
 
   const closeNewModal = () => {
     setOpenNew(false);
@@ -149,6 +185,15 @@ const Employee: React.FC = () => {
     <Wrapper>
       {renderCreateModal()}
       <Box>
+        <InputBox
+          width="80%"
+          height="50px"
+          style={{ borderRadius: "10px" }}
+          placeholder="employee id"
+          themeType={Theme.Light}
+          value={searchKey}
+          onChange={handleSearchChange}
+        ></InputBox>
         <TableBox
           width="80%"
           height="100%"
