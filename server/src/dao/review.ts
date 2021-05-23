@@ -11,6 +11,11 @@ export const findReviewsByEmployeeID = async (eID: number) => {
   return review;
 };
 
+export const findReviewsByReviewerID = async (rID: number) => {
+  const review = await Reivew.findAll({ where: { reviewer_id: rID } });
+  return review;
+};
+
 export const findReviewByID = async (id: number) => {
   const review = await Reivew.findByPk(id);
   return review;

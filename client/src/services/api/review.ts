@@ -7,7 +7,12 @@ export const getReviewsAPI = () =>
   });
 
 export const getEmployeesReviewsAPI = (id: number) =>
-  api.get<IReview[]>(`/reviews/employee/${id}`).then((res) => {
+  api.get<IReview[]>(`/reviews/employees/${id}`).then((res) => {
+    return res.data;
+  });
+
+export const getReviewersReviewsAPI = (id: number) =>
+  api.get<IReview[]>(`/reviews/reviewers/${id}`).then((res) => {
     return res.data;
   });
 

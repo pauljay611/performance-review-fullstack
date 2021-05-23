@@ -29,6 +29,17 @@ const reducer = createReducer<ReviewState, ReviewsActionsType>(initialState)
   .handleAction(actions.fetchEmployeesReviewsError, (state, actions) => {
     return { ...state, reviews: [], loading: false, error: actions.payload };
   })
+  .handleAction(actions.fetchReviewersReviewsSuccess, (state, actions) => ({
+    ...state,
+    reviews: actions.payload,
+    loading: false,
+  }))
+  .handleAction(actions.fetchReviewersReviews, (state) => {
+    return { Reviews: state.reviews, loading: true };
+  })
+  .handleAction(actions.fetchReviewersReviewsError, (state, actions) => {
+    return { ...state, reviews: [], loading: false, error: actions.payload };
+  })
   .handleAction(actions.addReviewSuccess, (state) => {
     return {
       ...state,

@@ -34,6 +34,21 @@ export const fetchEmployeesReviewsError = createAction(
   (error: Error) => error
 )();
 
+export const fetchReviewersReviewsSuccess = createAction(
+  constants.FETCH_REVIEWERS_REVIEW_SUCCESS,
+  (review: IReview[]) => review
+)();
+
+export const fetchReviewersReviews = createAction(
+  constants.FETCH_REVIEWERS_REVIEW,
+  (payload: IReviewPayload) => payload
+)();
+
+export const fetchReviewersReviewsError = createAction(
+  constants.FETCH_REVIEWERS_REVIEW_ERROR,
+  (error: Error) => error
+)();
+
 export const addReviewSuccess = createAction(
   constants.ADD_REVIEW_SUCCESS,
   (review: IReview) => review
@@ -86,6 +101,9 @@ export default {
   fetchEmployeesReviewsSuccess,
   fetchEmployeesReviews,
   fetchEmployeesReviewsError,
+  fetchReviewersReviewsSuccess,
+  fetchReviewersReviews,
+  fetchReviewersReviewsError,
   addReviewSuccess,
   addReview,
   addReviewError,

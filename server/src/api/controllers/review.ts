@@ -41,6 +41,29 @@ export const getReviewsByEmployeeID = async (
   }
 };
 
+export const getReviewsByReviewerID = async (
+  req: Request<{ rID: string }>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // only admin can see other user's reviews
+    const authHeader = req.headers.authorization;
+    const decodeToken = parseAuthHeader(authHeader);
+    const users = await User.getDataByID(+req.params.rID);
+    const isAdmin = users.get("is_admin");
+    if (!isAdmin && decodeToken["id"] !== +req.params.rID) {
+      return res.status(403).send("forbidden");
+    }
+
+    const reviews = await Review.getDataByReviewerID(+req.params.rID);
+    res.status(200).json(reviews);
+  } catch (error) {
+    error.statusCode = 400;
+    next(error);
+  }
+};
+
 export const createReview = async (
   req: Request,
   res: Response,

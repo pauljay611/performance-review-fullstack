@@ -66,6 +66,7 @@ const UpdateFormModal: React.FC<Props> = ({ review, closeModal }) => {
             placeholder="Reviewer id"
             themeType={Theme.Light}
             name="reviewer_id"
+            disabled
             value={updatedReview.reviewer_id}
             onChange={handleUpdateReviewChange}
           />
@@ -75,6 +76,7 @@ const UpdateFormModal: React.FC<Props> = ({ review, closeModal }) => {
             style={{ borderRadius: "10px" }}
             placeholder="Employee id"
             name="employee_id"
+            disabled
             value={updatedReview.employee_id}
             themeType={Theme.Light}
             onChange={handleUpdateReviewChange}
@@ -111,7 +113,7 @@ const UpdateFormModal: React.FC<Props> = ({ review, closeModal }) => {
             buttonSizeType={Size.M}
             onClick={handleUpdateReview}
           >
-            Add
+            Update
           </Button>
           <Button
             themeType={Theme.Dangerous}

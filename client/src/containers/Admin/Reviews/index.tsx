@@ -109,7 +109,7 @@ const newDefaultReview: Omit<IReview, "id"> = {
 
 const Employee: React.FC = () => {
   const [openNew, setOpenNew] = useState(false);
-  const { reviews = [], loading } = useReviews();
+  const { reviews = [], loading } = useReviews({});
 
   const data = reviews.map((review) => {
     return [

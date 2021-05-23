@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import TableBox from "../../../component/TableBox";
-import { Theme } from "../../../types";
+import { Theme, IReview, Size } from "../../../types";
 import { useReviews } from "../../../hooks/review";
+import { useUser } from "../../../hooks/user";
+import UpdateFormModal from "./UpdateFormModal";
+import Button from "../../../component/Button";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -18,10 +21,54 @@ const Box = styled.div`
   position: "relative";
 `;
 
-const header = ["key", "reviewer_id", "employee_id", "feedback", "is_reviewed"];
+const header = [
+  "key",
+  "reviewer_id",
+  "employee_id",
+  "feedback",
+  "is_reviewed",
+  "review",
+];
+
+interface TableProps {
+  theme: Theme;
+  text: string;
+  review: IReview;
+}
+
+const TableUpdateButton: React.FC<TableProps> = ({ theme, text, review }) => {
+  const [openUpdate, setOpenUpdate] = useState(false);
+
+  const openUpdateModal = () => {
+    setOpenUpdate(true);
+  };
+
+  const closeUpdateModal = () => {
+    setOpenUpdate(false);
+  };
+
+  function renderUpdateModal() {
+    if (!openUpdate) return null;
+    return <UpdateFormModal review={review} closeModal={closeUpdateModal} />;
+  }
+
+  return (
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      {renderUpdateModal()}
+      <Button
+        buttonSizeType={Size.M}
+        themeType={theme}
+        onClick={openUpdateModal}
+      >
+        {text}
+      </Button>
+    </div>
+  );
+};
 
 const Employee: React.FC = () => {
-  const { reviews = [], loading } = useReviews();
+  const { currentUser } = useUser();
+  const { reviews = [], loading } = useReviews({ rid: currentUser?.id });
 
   const data = reviews.map((review) => {
     return [
@@ -30,6 +77,7 @@ const Employee: React.FC = () => {
       review.employee_id,
       review.feedback,
       review.is_reviewed ? "yes" : "no",
+      <TableUpdateButton theme={Theme.Warning} text="update" review={review} />,
     ];
   });
 

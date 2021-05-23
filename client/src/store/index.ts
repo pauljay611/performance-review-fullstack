@@ -13,6 +13,7 @@ import {
   updateReviewEpic,
   deleteReviewEpic,
   getEmployeesReviewsEpic,
+  getReviewersReviewsEpic,
 } from "./reviews/epics";
 import {
   getAllUsersEpic,
@@ -57,6 +58,7 @@ const rootReducer = combineReducers(reducers);
 
 const rootEpic = combineEpics(
   getAllReviewsEpic,
+  getReviewersReviewsEpic,
   addReviewEpic,
   updateReviewEpic,
   deleteReviewEpic,

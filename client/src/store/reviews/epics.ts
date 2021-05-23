@@ -45,6 +45,23 @@ export const getEmployeesReviewsEpic: Epic<
   );
 };
 
+export const getReviewersReviewsEpic: Epic<
+  ReviewsActionsType,
+  ReviewsActionsType,
+  RootState,
+  typeof API
+> = (action$, _, { getReviewersReviewsAPI }) => {
+  return action$.pipe(
+    filter(isOfType(constants.FETCH_REVIEWERS_REVIEW)),
+    mergeMap((action) =>
+      from(getReviewersReviewsAPI(action.payload.id)).pipe(
+        map(actions.fetchEmployeesReviewsSuccess),
+        catchError((err) => of(actions.fetchEmployeesReviewsError(err)))
+      )
+    )
+  );
+};
+
 export const addReviewEpic: Epic<
   ReviewsActionsType,
   ReviewsActionsType,

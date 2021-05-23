@@ -113,7 +113,7 @@ const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
             buttonSizeType={Size.M}
             onClick={handleUpdateUser}
           >
-            Add
+            Update
           </Button>
           <Button
             themeType={Theme.Dangerous}

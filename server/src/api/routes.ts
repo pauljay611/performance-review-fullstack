@@ -13,6 +13,7 @@ import {
   createReview,
   createUser,
   login,
+  getReviewsByReviewerID,
 } from "../api/controllers";
 
 import checkAdminRole from "../auth/checkAdminRole";
@@ -65,10 +66,16 @@ router.get(
   getReviews
 );
 router.get(
-  "/reviews/employee/:eID",
+  "/reviews/employees/:eID",
   passport.authenticate("jwt", { session: false }),
   checkAdminRole(false),
   getReviewsByEmployeeID
+);
+router.get(
+  "/reviews/reviewers/:rID",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole(false),
+  getReviewsByReviewerID
 );
 router.post(
   "/reviews",

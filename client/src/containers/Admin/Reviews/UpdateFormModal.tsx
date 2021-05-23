@@ -111,7 +111,7 @@ const UpdateFormModal: React.FC<Props> = ({ review, closeModal }) => {
             buttonSizeType={Size.M}
             onClick={handleUpdateReview}
           >
-            Add
+            Update
           </Button>
           <Button
             themeType={Theme.Dangerous}

@@ -2,6 +2,7 @@ import {
   findReviewsByEmployeeID,
   findReviews,
   findReviewByID,
+  findReviewsByReviewerID,
   updateReviewsByID,
   deleteReviewsByID,
   createReview,
@@ -18,6 +19,10 @@ class Review {
   }
   static async getDataByEmployeeID(id: number) {
     const reviews = await findReviewsByEmployeeID(id);
+    return reviews;
+  }
+  static async getDataByReviewerID(id: number) {
+    const reviews = await findReviewsByReviewerID(id);
     return reviews;
   }
   static async getDataByID(id: number) {

@@ -5,17 +5,26 @@ import { RootState } from "../store";
 import {
   fetchAllReviews,
   fetchEmployeesReviews,
+  fetchReviewersReviews,
 } from "../store/reviews/actions";
 
-export const useReviews = (eid?: number) => {
+interface Params {
+  eid?: number;
+  rid?: number;
+}
+
+export const useReviews = ({ eid, rid }: Params) => {
   const { reviews, loading, error } = useSelector(
     (state: RootState) => state.review
   );
   const dispatch = useDispatch();
-  console.log(eid);
   useEffect(() => {
     if (eid) {
       dispatch(fetchEmployeesReviews({ id: eid }));
+      return;
+    }
+    if (rid) {
+      dispatch(fetchReviewersReviews({ id: rid }));
       return;
     }
     dispatch(fetchAllReviews());
