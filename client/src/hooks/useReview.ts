@@ -28,7 +28,7 @@ export const useReviews = ({ eid, rid }: Params) => {
       return;
     }
     dispatch(fetchAllReviews());
-  }, [dispatch, eid]);
+  }, [rid, dispatch, eid]);
 
   return {
     reviews,
