@@ -44,16 +44,17 @@ API_ENDPOINT=http://localhost:8000
 
   - GET:/users
   - GET:/users/:id
-  - POST:/user
-  - PATCH:/user
+  - POST:/users
+  - PATCH:/users/:id
   - DELETE:/user/:id
 
 - Review
 
   - GET:/reviews
-  - GET:/reviews/employee/:eid
-  - POST:/review
-  - PATCH:/review
+  - GET:/reviews/employees/:eid
+  - GET:/reviews/reviewers/:rid
+  - POST:/reviews
+  - PATCH:/reviews/:id
   - DELETE:/reviews/:id
 
 ## Pages
