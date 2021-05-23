@@ -24,6 +24,15 @@ export const getReviewsByEmployeeID = async (
   next: NextFunction
 ) => {
   try {
+    // only admin can see other user's reviews
+    const authHeader = req.headers.authorization;
+    const decodeToken = parseAuthHeader(authHeader);
+    const users = await User.getDataByID(+req.params.eID);
+    const isAdmin = users.get("is_admin");
+    if (!isAdmin && decodeToken["id"] !== +req.params.eID) {
+      return res.status(403).send("forbidden");
+    }
+
     const reviews = await Review.getDataByEmployeeID(+req.params.eID);
     res.status(200).json(reviews);
   } catch (error) {
