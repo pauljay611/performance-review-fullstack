@@ -39,9 +39,11 @@ const UpdateFormModal: React.FC<Props> = ({ review, closeModal }) => {
   }, [updatedReview]);
 
   const handleUpdateReviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setUpdatedReview((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     }));
   };
 

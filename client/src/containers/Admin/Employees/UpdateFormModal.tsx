@@ -40,9 +40,11 @@ const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
   }, [updatedUser]);
 
   const handleUpdatedUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setUpdatedUser((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     }));
   };
 
