@@ -4,7 +4,7 @@ import { IReview } from "../../types";
 import * as actions from "./actions";
 
 export interface ReviewState {
-  readonly reviews: IReview[];
+  readonly reviews?: IReview[];
   readonly loading: boolean;
   readonly error?: Error;
 }
