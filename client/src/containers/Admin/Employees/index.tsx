@@ -43,7 +43,7 @@ const TableButton: React.FC<TableProps> = ({ theme, text }) => {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Button buttonSizeType={Size.M} themeType={theme}>
-        text
+        {text}
       </Button>
     </div>
   );
@@ -51,7 +51,9 @@ const TableButton: React.FC<TableProps> = ({ theme, text }) => {
 
 const Employee: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const { users, loading } = useUser();
+  const { users = [], loading } = useUser();
+
+  console.log(users);
 
   const data = users.map((user) => {
     return [

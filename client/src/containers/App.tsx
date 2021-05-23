@@ -1,16 +1,14 @@
 import * as React from "react";
 import styld from "styled-components";
-import { Provider } from "react-redux";
-
-import store from "../store";
 
 import "../style/reset.css";
 import "../style/global.css";
 import { renderRoutes } from "react-router-config";
 import routes from "../router";
-import Cookies from "js-cookie";
+
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useUser } from "../hooks/user";
 
 const Layout = styld.div`
   width: 100vw;
@@ -26,21 +24,24 @@ const Wrapper = styld.div`
 
 const App: React.FC = () => {
   const history = useHistory();
+  const { currentUser, loading, error } = useUser();
   useEffect(() => {
-    const cookie = Cookies.get("token");
-    if (cookie) {
+    if (loading) return;
+    if (currentUser && currentUser.is_admin) {
       history.push("/admin");
       return;
     }
+    if (currentUser && !currentUser.is_admin) {
+      history.push("/employee");
+      return;
+    }
     history.push("/");
-  }, []);
+  }, [currentUser, error, loading, history]);
 
   return (
-    <Provider store={store}>
-      <Layout>
-        <Wrapper>{renderRoutes(routes)}</Wrapper>
-      </Layout>
-    </Provider>
+    <Layout>
+      <Wrapper>{renderRoutes(routes)}</Wrapper>
+    </Layout>
   );
 };
 

@@ -1,7 +1,7 @@
 import { Epic } from "redux-observable";
 import { isOfType } from "typesafe-actions";
 import { from, of } from "rxjs";
-import { catchError, filter, map, mergeMap } from "rxjs/operators";
+import { catchError, filter, map, mergeMap, tap } from "rxjs/operators";
 
 import * as API from "../../services/api/user";
 
@@ -23,6 +23,23 @@ export const getAllUsersEpic: Epic<
       from(getUsersAPI()).pipe(
         map(actions.fetchAllUsersSuccess),
         catchError((err) => of(actions.fetchAllUsersError(err)))
+      )
+    )
+  );
+};
+
+export const getUserEpic: Epic<
+  UsersActionsType,
+  UsersActionsType,
+  RootState,
+  typeof API
+> = (action$, _, { getUserAPI }) => {
+  return action$.pipe(
+    filter(isOfType(constants.FETCH_USER)),
+    mergeMap((action) =>
+      from(getUserAPI(action.payload.id)).pipe(
+        map(actions.fetchUserSuccess),
+        catchError((err) => of(actions.fetchUserError(err)))
       )
     )
   );

@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import jwtDecode from "jwt-decode";
+
 import { RootState } from "../store";
-import { fetchAllUsers } from "../store/users/actions";
+import { fetchAllUsers, fetchUser } from "../store/users/actions";
+import Cookies from "js-cookie";
 
-export const useUser = () => {
-  const [currentUserID, setCurrentUserID] = useState<number>();
-
-  const { users, loading } = useSelector((state: RootState) => state.user);
+export const useUsers = () => {
+  const { users, loading, error } = useSelector(
+    (state: RootState) => state.user
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,14 +17,34 @@ export const useUser = () => {
   }, []);
 
   useEffect(() => {
-    if (users.length === 0) return;
-    setCurrentUserID(users[0].id);
-  }, [users]);
+    const token = Cookies.get("token") ?? "";
+    const { id } = jwtDecode<{ id: number }>(token);
+    dispatch(fetchUser({ id }));
+  }, []);
 
   return {
-    currentUserID,
-    setCurrentUserID,
     users,
     loading,
+    error,
+  } as const;
+};
+
+export const useUser = () => {
+  const { currentUser, loading, error } = useSelector(
+    (state: RootState) => state.user
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (!token) return;
+    const { id } = jwtDecode<{ id: number }>(token);
+    dispatch(fetchUser({ id }));
+  }, []);
+
+  return {
+    currentUser,
+    loading,
+    error,
   } as const;
 };

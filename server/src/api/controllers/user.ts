@@ -67,14 +67,6 @@ export const login = async (
       SECRET
     );
 
-    const oneDayToSeconds = 24 * 60 * 60;
-    res.cookie("token", jwtToken, {
-      maxAge: oneDayToSeconds,
-      httpOnly: true,
-      // Forces to use https in production
-      secure: process.env.NODE_ENV === "production" ? true : false,
-    });
-
     res.status(200).json({ message: "Success", token: jwtToken });
   } catch (error) {
     error.statusCode = 400;

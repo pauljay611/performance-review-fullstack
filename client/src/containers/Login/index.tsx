@@ -40,7 +40,8 @@ const Login: React.FC = () => {
         Cookies.set("token", res.token);
         history.push("/admin");
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error(error);
         setErrorMsg("Username or email not matched");
         setOpen(true);
       });

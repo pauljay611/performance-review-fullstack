@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import Portal from "./Portal";
 import { Size, Theme } from "../types";
@@ -45,16 +45,17 @@ const Body = styled.div`
 
 const Modal: React.FC<Props> = ({ title, closeModal, children }) => {
   const rootEl = document.getElementById("app");
-  const handleClose = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    e.nativeEvent.stopImmediatePropagation();
-    closeModal();
-  };
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (modalRef.current) {
+      modalRef.current.addEventListener("click", closeModal);
+    }
+  }, [closeModal]);
 
   return (
     <Portal element={rootEl}>
-      <Wrapper onClickCapture={handleClose}>
+      <Wrapper ref={modalRef}>
         <ModalWrapper>
           <Header>
             <Text sizeType={Size.L} themeType={Theme.Light}>

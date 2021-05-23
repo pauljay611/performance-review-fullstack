@@ -20,3 +20,8 @@ export const getUsersAPI = () =>
   api.get<IUser[]>("/users").then((res) => {
     return res.data;
   });
+
+export const getUserAPI = (id: number) =>
+  api.get<IUser>(`/users/${id}`).then((res) => {
+    return res.data;
+  });

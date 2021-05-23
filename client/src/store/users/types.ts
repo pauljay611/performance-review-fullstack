@@ -4,7 +4,8 @@ import { IUser } from "../../types";
 import * as actions from "./actions";
 
 export interface UserState {
-  readonly users: IUser[];
+  readonly users?: IUser[];
+  readonly currentUser?: IUser;
   readonly loading: boolean;
   readonly error?: Error;
 }
