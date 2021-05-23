@@ -11,8 +11,20 @@ export const usePageGuard = () => {
   useEffect(() => {
     if (loading) return;
     if (currentUser) {
+      if (currentUser.is_admin && path[1] === "employee") {
+        history.push("/admin");
+        return;
+      }
+      if (currentUser.is_admin && path[1] === "admin") {
+        history.goForward();
+        return;
+      }
       if (!currentUser.is_admin && path[1] === "admin") {
         history.push("/employee");
+        return;
+      }
+      if (!currentUser.is_admin && path[1] === "employee") {
+        history.goForward();
         return;
       }
       const defaultPath = currentUser.is_admin ? "/admin" : "/employee";

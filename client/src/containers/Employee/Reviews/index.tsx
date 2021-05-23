@@ -7,6 +7,7 @@ import { useReviews } from "../../../hooks/useReview";
 import { useUser } from "../../../hooks/useUser";
 import UpdateFormModal from "./UpdateFormModal";
 import Button from "../../../component/Button";
+import { usePageGuard } from "../../../hooks/usePageGuard";
 
 const Wrapper = styled.div`
   width: 100%;

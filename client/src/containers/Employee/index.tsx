@@ -2,6 +2,7 @@ import React from "react";
 import { renderRoutes, RouteConfigComponentProps } from "react-router-config";
 import Header from "../../component/Header";
 import styled from "styled-components";
+import { usePageGuard } from "../../hooks/usePageGuard";
 
 const Container = styled.div`
   height: 90%;
@@ -13,7 +14,7 @@ const Wrapper = styled.div`
 
 const Employee: React.FC<RouteConfigComponentProps> = ({ route }) => {
   const routes = route?.routes ?? [];
-
+  usePageGuard();
   const paths = routes.map((route) => ({
     name: route.name ?? "",
     path: route.path ?? "",
