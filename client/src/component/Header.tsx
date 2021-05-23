@@ -43,7 +43,7 @@ const Header: React.FC<Props> = ({ paths }) => {
 
   const handleLogoutClick = () => {
     Cookies.remove("token");
-    history.push("/");
+    window.location.reload();
   };
 
   return (
