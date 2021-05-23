@@ -9,8 +9,8 @@ export interface IUser {
 
 export interface IReview {
   id: number;
-  reviewer_id: string;
-  employee_id: string;
+  reviewer_id: number;
+  employee_id: number;
   feedback: string;
   is_reviewed: boolean;
 }

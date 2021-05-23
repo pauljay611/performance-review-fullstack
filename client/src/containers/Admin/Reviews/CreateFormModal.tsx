@@ -12,11 +12,11 @@ import TextBox from "../../../component/TextBox";
 
 import Button from "../../../component/Button";
 import Input from "../../../component/InputBox";
-import { IUser } from "../../../types";
-import { updateUser } from "../../../store/users/actions";
+import { IReview } from "../../../types";
+import { addReview } from "../../../store/reviews/actions";
 
 interface Props {
-  user: IUser;
+  review: Omit<IReview, "id">;
   closeModal: () => void;
 }
 
@@ -30,88 +30,73 @@ const FormWrapper = styled.div`
   padding: 5% 5%;
 `;
 
-const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
-  const [updatedUser, setUpdatedUser] = useState<IUser>(user);
+const CreateFormModal: React.FC<Props> = ({ closeModal, review }) => {
+  const [newReview, setReview] = useState<Omit<IReview, "id">>(review);
   const dispatch = useDispatch();
-
-  const handleUpdateUser = useCallback(() => {
-    dispatch(updateUser({ id: user.id, body: updatedUser }));
+  const handleAddReview = useCallback(() => {
+    dispatch(addReview(newReview));
     window.location.reload();
-  }, [updatedUser]);
+  }, [newReview]);
 
-  const handleUpdatedUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatedUser((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const handleNewReviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReview((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
-    <Modal title="Update Employee">
+    <Modal title="New Review">
       <Form>
         <FormWrapper>
           <Input
             width="80%"
             height="50px"
             style={{ borderRadius: "10px" }}
-            placeholder="ID"
+            placeholder="Reviewer id"
             themeType={Theme.Light}
-            name="id"
-            value={updatedUser.id}
-            disabled
+            name="reviewer_id"
+            value={newReview.reviewer_id}
+            onChange={handleNewReviewChange}
           />
           <Input
             width="80%"
             height="50px"
             style={{ borderRadius: "10px" }}
-            placeholder="Username"
+            placeholder="Employee id"
+            name="employee_id"
+            value={newReview.employee_id}
             themeType={Theme.Light}
-            name="username"
-            value={updatedUser.username}
-            onChange={handleUpdatedUserChange}
+            onChange={handleNewReviewChange}
           />
           <Input
             width="80%"
             height="50px"
             style={{ borderRadius: "10px" }}
-            placeholder="name"
-            name="name"
-            value={updatedUser.name}
+            placeholder="feedback"
+            name="feedback"
+            value={newReview.feedback}
             themeType={Theme.Light}
-            onChange={handleUpdatedUserChange}
-          />
-          <Input
-            width="80%"
-            height="50px"
-            style={{ borderRadius: "10px" }}
-            placeholder="password"
-            name="password"
-            type="password"
-            value={updatedUser.password}
-            themeType={Theme.Light}
-            onChange={handleUpdatedUserChange}
+            onChange={handleNewReviewChange}
           />
           <TextBox
             style={{ width: "80%", textAlign: "center" }}
             sizeType={Size.S}
           >
-            Is admin ????
+            Is Reviewed ????
           </TextBox>
           <Input
             width="80%"
             height="20px"
             style={{ borderRadius: "10px" }}
             placeholder="admin"
-            name="is_admin"
+            name="is_reviewed"
             type="checkBox"
-            value={updatedUser.is_admin}
+            value={newReview.is_reviewed}
             themeType={Theme.Light}
-            onChange={handleUpdatedUserChange}
+            onChange={handleNewReviewChange}
           />
           <Button
             themeType={Theme.Primary}
             buttonSizeType={Size.M}
-            onClick={handleUpdateUser}
+            onClick={handleAddReview}
           >
             Add
           </Button>
@@ -128,4 +113,4 @@ const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
   );
 };
 
-export default UpdateFormModal;
+export default CreateFormModal;

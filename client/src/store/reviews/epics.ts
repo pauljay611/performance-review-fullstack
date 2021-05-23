@@ -1,7 +1,7 @@
 import { Epic } from "redux-observable";
 import { isOfType } from "typesafe-actions";
 import { from, of } from "rxjs";
-import { catchError, filter, map, mergeMap, tap } from "rxjs/operators";
+import { catchError, filter, map, mergeMap } from "rxjs/operators";
 
 import * as API from "../../services/api/review";
 

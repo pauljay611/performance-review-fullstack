@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
 
@@ -14,12 +14,6 @@ export const useUsers = () => {
 
   useEffect(() => {
     dispatch(fetchAllUsers());
-  }, []);
-
-  useEffect(() => {
-    const token = Cookies.get("token") ?? "";
-    const { id } = jwtDecode<{ id: number }>(token);
-    dispatch(fetchUser({ id }));
   }, []);
 
   return {

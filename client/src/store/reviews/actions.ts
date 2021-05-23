@@ -12,10 +12,7 @@ export const fetchAllReviewsSuccess = createAction(
   (reviews: IReview[]) => reviews
 )();
 
-export const fetchAllReviews = createAction(
-  constants.FETCH_ALL_REVIEWS,
-  () => {}
-)();
+export const fetchAllReviews = createAction(constants.FETCH_ALL_REVIEWS)();
 
 export const fetchAllReviewsError = createAction(
   constants.FETCH_ALL_REVIEWS_ERROR,

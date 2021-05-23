@@ -1,20 +1,22 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { RootState } from "../store";
 import { fetchAllReviews } from "../store/reviews/actions";
 
-export const useReview = (reviewID?: number) => {
-  const { reviews, loading } = useSelector((state: RootState) => state.review);
+export const useReviews = () => {
+  const { reviews, loading, error } = useSelector(
+    (state: RootState) => state.review
+  );
   const dispatch = useDispatch();
-
-  const getReviews = useCallback((reviewID: number) => {
-    dispatch(fetchAllReviews());
-  }, []);
-
+  console.log(reviews);
   useEffect(() => {
-    if (!reviewID) return;
-    getReviews(reviewID);
-  }, [reviewID]);
+    dispatch(fetchAllReviews());
+  }, [dispatch]);
 
-  return { reviews, getReviews, loading } as const;
+  return {
+    reviews,
+    loading,
+    error,
+  } as const;
 };

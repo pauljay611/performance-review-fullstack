@@ -6,17 +6,16 @@ import Modal from "../../../component/Modal";
 
 import Form from "../../../component/Form";
 
-import { Theme, Size } from "../../../types";
+import { Theme, Size, IReview } from "../../../types";
 
 import TextBox from "../../../component/TextBox";
 
 import Button from "../../../component/Button";
 import Input from "../../../component/InputBox";
-import { IUser } from "../../../types";
-import { updateUser } from "../../../store/users/actions";
+import { updateReview } from "../../../store/reviews/actions";
 
 interface Props {
-  user: IUser;
+  review: IReview;
   closeModal: () => void;
 }
 
@@ -30,24 +29,24 @@ const FormWrapper = styled.div`
   padding: 5% 5%;
 `;
 
-const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
-  const [updatedUser, setUpdatedUser] = useState<IUser>(user);
+const UpdateFormModal: React.FC<Props> = ({ review, closeModal }) => {
+  const [updatedReview, setUpdatedReview] = useState<IReview>(review);
   const dispatch = useDispatch();
 
-  const handleUpdateUser = useCallback(() => {
-    dispatch(updateUser({ id: user.id, body: updatedUser }));
+  const handleUpdateReview = useCallback(() => {
+    dispatch(updateReview({ id: review.id, body: updatedReview }));
     window.location.reload();
-  }, [updatedUser]);
+  }, [updatedReview]);
 
-  const handleUpdatedUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatedUser((prev) => ({
+  const handleUpdateReviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUpdatedReview((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
 
   return (
-    <Modal title="Update Employee">
+    <Modal title="Update Review">
       <Form>
         <FormWrapper>
           <Input
@@ -57,61 +56,60 @@ const UpdateFormModal: React.FC<Props> = ({ user, closeModal }) => {
             placeholder="ID"
             themeType={Theme.Light}
             name="id"
-            value={updatedUser.id}
+            value={updatedReview.id}
             disabled
           />
           <Input
             width="80%"
             height="50px"
             style={{ borderRadius: "10px" }}
-            placeholder="Username"
+            placeholder="Reviewer id"
             themeType={Theme.Light}
-            name="username"
-            value={updatedUser.username}
-            onChange={handleUpdatedUserChange}
+            name="reviewer_id"
+            value={updatedReview.reviewer_id}
+            onChange={handleUpdateReviewChange}
           />
           <Input
             width="80%"
             height="50px"
             style={{ borderRadius: "10px" }}
-            placeholder="name"
-            name="name"
-            value={updatedUser.name}
+            placeholder="Employee id"
+            name="employee_id"
+            value={updatedReview.employee_id}
             themeType={Theme.Light}
-            onChange={handleUpdatedUserChange}
+            onChange={handleUpdateReviewChange}
           />
           <Input
             width="80%"
             height="50px"
             style={{ borderRadius: "10px" }}
-            placeholder="password"
-            name="password"
-            type="password"
-            value={updatedUser.password}
+            placeholder="feedback"
+            name="feedback"
+            value={updatedReview.feedback}
             themeType={Theme.Light}
-            onChange={handleUpdatedUserChange}
+            onChange={handleUpdateReviewChange}
           />
           <TextBox
             style={{ width: "80%", textAlign: "center" }}
             sizeType={Size.S}
           >
-            Is admin ????
+            Is Reviewed ????
           </TextBox>
           <Input
             width="80%"
             height="20px"
             style={{ borderRadius: "10px" }}
-            placeholder="admin"
-            name="is_admin"
+            placeholder="is reviewed"
+            name="is_reviewed"
             type="checkBox"
-            value={updatedUser.is_admin}
+            value={updatedReview.is_reviewed}
             themeType={Theme.Light}
-            onChange={handleUpdatedUserChange}
+            onChange={handleUpdateReviewChange}
           />
           <Button
             themeType={Theme.Primary}
             buttonSizeType={Size.M}
-            onClick={handleUpdateUser}
+            onClick={handleUpdateReview}
           >
             Add
           </Button>
