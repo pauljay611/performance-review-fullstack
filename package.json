@@ -94,7 +94,6 @@
     "client:start": "./node_modules/.bin/cross-env NODE_ENV=development yarn workspace client start",
     "client:build": "yarn workspace client build",
     "db:create": "yarn workspace server db:migrate:undo && yarn workspace server db:migrate && yarn workspace server db:seeder",
-    "test": "jest",
-    "server:deploy": "chmod u+x *.sh && ./deploy.sh"
+    "test": "jest"
   }
 }

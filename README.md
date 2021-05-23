@@ -68,10 +68,6 @@ API_ENDPOINT=http://localhost:8000
   - reviews
   - feedbacks
 
-## Functional Requirements
-
-## Non-Functional Requirement
-
 ## User Story
 
 - User with admin role can do CRUD on users
@@ -89,4 +85,13 @@ API_ENDPOINT=http://localhost:8000
 
 ## High Level Design
 
-![paypay](https://i.imgur.com/rlhs2h5.png)
+![paypay](https://i.imgur.com/J53UFAa.png)
+
+![paypay](https://i.imgur.com/kVUDDaW.png)
+
+## Optimization
+
+1. React virtualize for long list
+2. Add page count and search key query for api to search big data
+3. Debounce input
+4. Form validator hooks
