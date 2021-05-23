@@ -6,8 +6,8 @@ export const getReviewsAPI = () =>
     return res.data;
   });
 
-export const getReviewAPI = (id: number) =>
-  api.get<IReview>(`/reviews/${id}`).then((res) => {
+export const getEmployeesReviewsAPI = (id: number) =>
+  api.get<IReview[]>(`/reviews/employee/${id}`).then((res) => {
     return res.data;
   });
 

@@ -65,7 +65,7 @@ router.get(
   getReviews
 );
 router.get(
-  "/reviews/:eID",
+  "/reviews/employee/:eID",
   passport.authenticate("jwt", { session: false }),
   checkAdminRole(false),
   getReviewsByEmployeeID

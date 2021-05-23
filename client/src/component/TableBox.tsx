@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import { BasStyleProps, Theme } from "../types";
 import { color } from "../style/theme";
@@ -37,6 +37,8 @@ const TD = styled.td<{ tHeight: string; theme: string }>`
   line-height: ${(props) => props.tHeight};
   text-align: center;
   color: ${(props) => props.theme};
+  word-wrap: break-word;
+  max-width: 400px;
 `;
 
 const TableBox: React.FC<Props> = ({
@@ -60,9 +62,9 @@ const TableBox: React.FC<Props> = ({
         <tbody>
           {data.map((item) => (
             <tr>
-              {item.map((name) => (
+              {item.map((content) => (
                 <TD tHeight={tHeight} theme={color[themeType]}>
-                  {name}
+                  {content}
                 </TD>
               ))}
             </tr>

@@ -36,12 +36,12 @@ const routes = [
     routes: [
       {
         path: "/employee/feedbacks",
-        name: "Feedbacks",
+        name: "My Feedbacks",
         component: React.lazy(() => import("../containers/Employee/Feedbacks")),
       },
       {
         path: "/employee/reviews",
-        name: "Reviews",
+        name: "My Reviews",
         component: React.lazy(() => import("../containers/Employee/Reviews")),
       },
     ],
