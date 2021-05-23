@@ -16,10 +16,12 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled.div`
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: "relative";
+  position: relative;
+  overflow: scroll;
 `;
 
 const header = [

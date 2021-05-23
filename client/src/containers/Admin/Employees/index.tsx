@@ -19,20 +19,12 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled.div`
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: "relative";
-`;
-
-const FormWrapper = styled.div`
-  width: 100%;
-  height: 80%;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: center;
-  padding: 5% 5%;
+  position: relative;
+  overflow: scroll;
 `;
 
 const header = ["key", "username", "name", "update", "delete"];
@@ -83,7 +75,7 @@ const TableDeleteButton: React.FC<TableProps> = ({ theme, text, user }) => {
 
   const confirm = () => {
     dispatch(deleteUser({ id: user.id }));
-    // window.location.reload();
+    window.location.reload();
   };
 
   function renderUpdateModal() {
@@ -151,21 +143,21 @@ const Employee: React.FC = () => {
           themeType={Theme.Main}
           tHeight="60px"
         />
-        <Button
-          themeType={Theme.Primary}
-          buttonSizeType={Size.S}
-          sizeType={Size.M}
-          style={{
-            position: "absolute",
-            bottom: "100px",
-            right: "10%",
-            borderRadius: "50%",
-          }}
-          onClick={openNewModal}
-        >
-          +
-        </Button>
       </Box>
+      <Button
+        themeType={Theme.Primary}
+        buttonSizeType={Size.S}
+        sizeType={Size.M}
+        style={{
+          position: "absolute",
+          bottom: "100px",
+          right: "10%",
+          borderRadius: "50%",
+        }}
+        onClick={openNewModal}
+      >
+        +
+      </Button>
     </Wrapper>
   );
 };

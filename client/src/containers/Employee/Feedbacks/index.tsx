@@ -5,7 +5,6 @@ import TableBox from "../../../component/TableBox";
 import { Theme } from "../../../types";
 import { useReviews } from "../../../hooks/useReview";
 import { useUser } from "../../../hooks/useUser";
-import { usePageGuard } from "../../../hooks/usePageGuard";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -14,10 +13,12 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled.div`
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: "relative";
+  position: relative;
+  overflow: scroll;
 `;
 
 const header = ["key", "reviewer_id", "employee_id", "feedback", "is_reviewed"];
