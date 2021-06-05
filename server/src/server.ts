@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import bodyParser from 'body-parser'
-import helmet from 'helmet'
+import bodyParser from "body-parser";
+import helmet from "helmet";
 import passport from "passport";
 
 import { authenticateDatabase } from "./models/index";
@@ -15,20 +15,16 @@ export const app = express();
 const PORT = process.env.PORT || 8000;
 
 const corsOptions = {
-  origin: [
-    "http://localhost:9000",
-    "http://localhost:3000",
-  ],
+  origin: ["http://localhost:9000", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 const corsMiddleware = cors(corsOptions);
 
-
 app.use(corsMiddleware);
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(bodyParser());
 
@@ -42,7 +38,7 @@ app.use(passport.session());
 app.get("/", (req, res) => res.send("Express + TypeScript Server"));
 
 app.get("*", function (req, res, next) {
-  const error = new Exception(404);
+  const error = new Exception(404, "api not found");
   next(error);
 });
 

@@ -7,13 +7,7 @@ export const errorHandler: ErrorRequestHandler = (
   res,
   next
 ) => {
-  const status = err.status || 500;
-  let message = err.message || "Something went wrong";
-
-  if (status === 404) {
-    message = "api not found";
-  }
-
+  const { status, message } = err;
   res.status(status).send({
     status,
     message,

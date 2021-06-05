@@ -1,7 +1,7 @@
 import { Epic } from "redux-observable";
 import { isOfType } from "typesafe-actions";
 import { from, of } from "rxjs";
-import { catchError, filter, map, mergeMap } from "rxjs/operators";
+import { catchError, filter, map, mergeMap, switchMap } from "rxjs/operators";
 
 import * as API from "../../services/api/review";
 
@@ -70,7 +70,7 @@ export const addReviewEpic: Epic<
 > = (action$, _, { addReviewAPI }) => {
   return action$.pipe(
     filter(isOfType(constants.ADD_REVIEW)),
-    mergeMap((action) =>
+    switchMap((action) =>
       from(addReviewAPI(action.payload)).pipe(
         map(actions.addReviewSuccess),
         catchError((err) => of(actions.addReviewError(err)))

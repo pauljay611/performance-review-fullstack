@@ -96,3 +96,5 @@ API_ENDPOINT=http://localhost:8000
 2. Add page count and search key query for api to search big data
 3. Debounce input
 4. Form validator hooks
+5. add checking input format and error checking
+6. delete -> archieve update
